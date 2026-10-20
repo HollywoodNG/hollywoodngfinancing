@@ -232,6 +232,35 @@ button.danger { background: #a42b37; }
             <input id="mileage" type="number" min="0" step="1" placeholder="45000">
           </div>
           <div>
+  <label for="downPayment">Estimated Down Payment ($)</label>
+  <input id="downPayment" type="number" min="0" step="50" placeholder="3000">
+</div>
+
+<div>
+  <label for="monthlyPayment">Estimated Monthly Payment ($)</label>
+  <input id="monthlyPayment" type="number" min="0" step="1" placeholder="450">
+</div>
+
+<div>
+  <label for="paymentTerm">Payment Term (months)</label>
+  <input id="paymentTerm" type="number" min="1" max="120" step="1" placeholder="72">
+</div>
+
+<div>
+  <label for="bodyType">Body Type</label>
+  <input id="bodyType" maxlength="40" placeholder="SUV, Sedan, Truck">
+</div>
+
+<div>
+  <label for="color">Color</label>
+  <input id="color" maxlength="40" placeholder="Black">
+</div>
+
+<div>
+  <label for="stockNumber">Stock Number</label>
+  <input id="stockNumber" maxlength="60" placeholder="NG1025">
+</div>
+          <div>
             <label for="photo">Vehicle photo</label>
             <input id="photo" type="file" accept="image/*">
           </div>
@@ -374,7 +403,7 @@ async function loadVehicles() {
 
   const { data, error } = await db
     .from("inventory")
-    .select("id,created_at,make,model,year,price,mileage,image_url,description,is_active")
+    ..select("id,created_at,make,model,year,price,mileage,image_url,description,is_active,down_payment_estimate,monthly_payment_estimate,payment_term_months,body_type,color,stock_number")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -456,7 +485,13 @@ function startEdit(vehicle) {
   document.getElementById("year").value = vehicle.year || "";
   document.getElementById("price").value = vehicle.price ?? "";
   document.getElementById("mileage").value = vehicle.mileage ?? "";
-  document.getElementById("description").value = vehicle.description || "";
+document.getElementById("downPayment").value = vehicle.down_payment_estimate ?? "";
+document.getElementById("monthlyPayment").value = vehicle.monthly_payment_estimate ?? "";
+document.getElementById("paymentTerm").value = vehicle.payment_term_months ?? "";
+document.getElementById("bodyType").value = vehicle.body_type || "";
+document.getElementById("color").value = vehicle.color || "";
+document.getElementById("stockNumber").value = vehicle.stock_number || "";
+document.getElementById("description").value = vehicle.description || "";
   document.getElementById("isActive").checked = Boolean(vehicle.is_active);
 
   photoInput.value = "";
@@ -577,6 +612,15 @@ vehicleForm.addEventListener("submit", async event => {
       mileage: mileageInput ? Number(mileageInput) : null,
       image_url: imageUrl || null,
       description: description || null,
+      down_payment_estimate: document.getElementById("downPayment").value
+  ? Number(document.getElementById("downPayment").value) : null,
+monthly_payment_estimate: document.getElementById("monthlyPayment").value
+  ? Number(document.getElementById("monthlyPayment").value) : null,
+payment_term_months: document.getElementById("paymentTerm").value
+  ? Number(document.getElementById("paymentTerm").value) : null,
+body_type: document.getElementById("bodyType").value.trim() || null,
+color: document.getElementById("color").value.trim() || null,
+stock_number: document.getElementById("stockNumber").value.trim() || null,
       is_active: isActive
     };
 
