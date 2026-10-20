@@ -403,7 +403,7 @@ async function loadVehicles() {
 
   const { data, error } = await db
     .from("inventory")
-    ..select("id,created_at,make,model,year,price,mileage,image_url,description,is_active,down_payment_estimate,monthly_payment_estimate,payment_term_months,body_type,color,stock_number")
+        .select("id,created_at,make,model,year,price,mileage,image_url,description,is_active,down_payment_estimate,monthly_payment_estimate,payment_term_months,body_type,color,stock_number")
     .order("created_at", { ascending: false });
 
   if (error) {
