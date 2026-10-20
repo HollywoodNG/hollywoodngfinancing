@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071a35">
+  <title>Hollywood NG | Car Financing</title>
+ 
+<style>
+:root {
+  --navy: #071a35;
+  --blue: #1459c7;
+  --light: #f3f6fb;
+  --text: #17243a;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--light);
+  color: var(--text);
+}
+header {
+  background: var(--navy);
+  color: white;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.logo { font-size: 21px; font-weight: 800; letter-spacing: 1px; }
+.logo span { color: #67a5ff; }
+button, input, select, textarea { font: inherit; }
+.lang {
+  background: transparent;
+  color: white;
+  border: 1px solid #8ba9d3;
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+.hero {
+  background: radial-gradient(ellipse at top right, #2864ad 0%, #123665 42%, #071a35 78%);
+  color: white;
+  padding: 76px 6% 88px;
+  text-align: center;
+}
+.tag {
+  color: #b9d7ff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+h1 {
+  font-size: clamp(34px, 6vw, 58px);
+  line-height: 1.08;
+  max-width: 800px;
+  margin: 18px auto;
+}
+.hero p {
+  max-width: 610px;
+  margin: 0 auto 27px;
+  color: #e0eaff;
+  line-height: 1.7;
+  font-size: 17px;
+}
+.cta {
+  display: inline-block;
+  background: white;
+  color: var(--navy);
+  padding: 15px 23px;
+  border-radius: 9px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .2s, background .2s;
+}
+.cta:hover { background: #e7f0ff; transform: translateY(-2px); }
+main {
+  width: min(1000px, 92%);
+  margin: -25px auto 50px;
+  position: relative;
+}
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.benefit {
+  background: white;
+  border: 1px solid #e4eaf3;
+  border-radius: 14px;
+  padding: 23px 16px;
+  text-align: center;
+  box-shadow: 0 8px 24px #102b4a0c;
+}
+.benefit strong { display: block; margin-bottom: 9px; }
+.benefit span { font-size: 13px; color: #627087; line-height: 1.6; }
+.form-card {
+  background: white;
+  border: 1px solid #e4eaf3;
+  border-radius: 18px;
+  padding: clamp(22px, 5vw, 42px);
+  box-shadow: 0 12px 36px #102b4a12;
+}
+h2 { color: var(--navy); margin-top: 0; font-size: 28px; }
+.sub { color: #637087; line-height: 1.7; margin-bottom: 25px; }
+#leadForm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.full { grid-column: 1 / -1; }
+label { font-size: 14px; font-weight: 700; }
+input, select, textarea {
+  width: 100%;
+  border: 1px solid #d4dce8;
+  border-radius: 9px;
+  padding: 14px;
+  background: white;
+  color: #17243a;
+  min-width: 0;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #9fc4ff;
+  border-color: var(--blue);
+}
+#consent { width: auto; }
+.submit {
+  grid-column: 1 / -1;
+  background: var(--blue);
+  color: white;
+  border: 0;
+  padding: 17px;
+  border-radius: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.submit:hover { background: #0c459e; }
+.privacy { font-size: 12px; line-height: 1.7; color: #68758a; }
+.status {
+  display: none;
+  padding: 14px;
+  background: #e9f7ee;
+  color: #176338;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+footer {
+  text-align: center;
+  padding: 28px 18px;
+  background: var(--navy);
+  color: #dce7f7;
+  font-size: 13px;
+  line-height: 1.7;
+}
+@media (max-width: 600px) {
+  header { padding: 16px 5%; }
+  .logo { font-size: 18px; }
+  .hero { padding: 55px 5% 68px; }
+  main { width: 92%; }
+  .benefits { grid-template-columns: 1fr; gap: 10px; }
+  .benefit { padding: 17px; }
+  #leadForm { grid-template-columns: 1fr; }
+  #leadForm .full, #leadForm .submit { grid-column: 1; }
+}
+</style>
+
+</head>
+<body>
+  <header>
+    <div class="logo">HOLLYWOOD <span>NG</span></div>
+    <button class="lang" id="langButton" type="button">English</button>
+  </header>
+
+  <section class="hero">
+    <div class="tag" data-es="TU PRÓXIMO AUTO EMPIEZA ACÁ" data-en="YOUR NEXT CAR STARTS HERE">
+      TU PRÓXIMO AUTO EMPIEZA ACÁ
+    </div>
+    <h1 data-es="Encontrá tu próximo auto con Hollywood NG"
+        data-en="Find Your Next Car with Hollywood NG">
+      Encontrá tu próximo auto con Hollywood NG
+    </h1>
+    <p data-es="Contanos qué estás buscando. Nuestro equipo se pondrá en contacto con vos para conversar sobre las opciones de financiamiento disponibles."
+       data-en="Tell us what you're looking for. Our team will contact you to discuss available financing options.">
+      Contanos qué estás buscando. Nuestro equipo se pondrá en contacto con vos para conversar sobre las opciones de financiamiento disponibles.
+    </p>
+    <a class="cta" href="#application" data-es="QUIERO MÁS INFORMACIÓN"
+       data-en="I'M INTERESTED">QUIERO MÁS INFORMACIÓN</a>
+  </section>
+
+  <main>
+    <section class="benefits">
+      <div class="benefit">
+        <strong data-es="🚘 Opciones para vos" data-en="🚘 Options for you">🚘 Opciones para vos</strong>
+        <span data-es="Contanos qué vehículo te interesa." data-en="Tell us which vehicle interests you.">Contanos qué vehículo te interesa.</span>
+      </div>
+      <div class="benefit">
+        <strong data-es="🤝 Atención personalizada" data-en="🤝 Personal assistance">🤝 Atención personalizada</strong>
+        <span data-es="Un miembro de nuestro equipo te contactará." data-en="A member of our team will contact you.">Un miembro de nuestro equipo te contactará.</span>
+      </div>
+      <div class="benefit">
+        <strong data-es="📱 Fácil y rápido" data-en="📱 Easy and simple">📱 Fácil y rápido</strong>
+        <span data-es="Dejanos tus datos desde tu celular." data-en="Send us your information from your phone.">Dejanos tus datos desde tu celular.</span>
+      </div>
+    </section>
+
+    <section class="form-card" id="application">
+      <h2 data-es="Solicitá información" data-en="Request Information">Solicitá información</h2>
+      <p class="sub" data-es="Completá el formulario y nos comunicaremos con vos. Enviar este formulario no garantiza la aprobación de un financiamiento."
+         data-en="Complete the form and we'll contact you. Submitting this form does not guarantee financing approval.">
+        Completá el formulario y nos comunicaremos con vos. Enviar este formulario no garantiza la aprobación de un financiamiento.
+      </p>
+
+      <form id="leadForm">
+        <div class="field">
+          <label for="name" data-es="Nombre completo *" data-en="Full name *">Nombre completo *</label>
+          <input id="name" name="name" autocomplete="name" required maxlength="100">
+        </div>
+
+        <div class="field">
+          <label for="phone" data-es="Teléfono *" data-en="Phone number *">Teléfono *</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="30">
+        </div>
+
+        <div class="field">
+          <label for="city" data-es="Ciudad donde vivís *" data-en="City where you live *">Ciudad donde vivís *</label>
+          <input id="city" name="city" autocomplete="address-level2" required maxlength="100">
+        </div>
+
+        <div class="field">
+          <label for="vehicle" data-es="¿Qué vehículo buscás?" data-en="What vehicle are you looking for?">¿Qué vehículo buscás?</label>
+          <input id="vehicle" name="vehicle" maxlength="100"
+            data-placeholder-es="Ej.: Toyota Camry, SUV, pickup"
+            data-placeholder-en="E.g., Toyota Camry, SUV, pickup"
+            placeholder="Ej.: Toyota Camry, SUV, pickup">
+        </div>
+
+        <div class="field">
+          <label for="down" data-es="¿Cuánto pensás dar de entrada?" data-en="How much are you considering for a down payment?">¿Cuánto pensás dar de entrada?</label>
+          <select id="down" name="down">
+            <option value="" data-es="Seleccionar" data-en="Select">Seleccionar</option>
+            <option value="Under $2000" data-es="Menos de $2.000" data-en="Under $2,000">Menos de $2.000</option>
+            <option value="$2000-$4000" data-es="$2.000–$4.000" data-en="$2,000–$4,000">$2.000–$4.000</option>
+            <option value="$4000+" data-es="$4.000 o más" data-en="$4,000 or more">$4.000 o más</option>
+            <option value="Not sure" data-es="Todavía no sé" data-en="Not sure yet">Todavía no sé</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="when" data-es="¿Cuándo querés comprar?" data-en="When would you like to buy?">¿Cuándo querés comprar?</label>
+          <select id="when" name="when">
+            <option value="" data-es="Seleccionar" data-en="Select">Seleccionar</option>
+            <option value="As soon as possible" data-es="Lo antes posible" data-en="As soon as possible">Lo antes posible</option>
+            <option value="Within 30 days" data-es="Dentro de 30 días" data-en="Within 30 days">Dentro de 30 días</option>
+            <option value="Just looking" data-es="Estoy averiguando" data-en="Just looking">Estoy averiguando</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="contact" data-es="¿Cómo preferís que te contactemos?" data-en="How would you prefer us to contact you?">¿Cómo preferís que te contactemos?</label>
+          <select id="contact" name="contact">
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Phone call" data-es="Llamada telefónica" data-en="Phone call">Llamada telefónica</option>
+            <option value="Text message" data-es="Mensaje de texto" data-en="Text message">Mensaje de texto</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label style="font-weight:400;line-height:1.6">
+            <input type="checkbox" id="consent" required style="width:auto;display:inline">
+            <span data-es="Acepto que Hollywood NG me contacte en relación con mi consulta. Enviar el formulario no garantiza la aprobación de financiamiento."
+              data-en="I agree that Hollywood NG may contact me about my inquiry. Submitting this form does not guarantee financing approval.">
+              Acepto que Hollywood NG me contacte en relación con mi consulta. Enviar el formulario no garantiza la aprobación de financiamiento.
+            </span>
+          </label>
+        </div>
+
+        <button class="submit" type="submit" data-es="ENVIAR MI CONSULTA" data-en="SUBMIT MY INQUIRY">ENVIAR MI CONSULTA</button>
+        <p class="privacy full" data-es="Tu información se utilizará para responder a tu consulta. En esta versión de prueba, el formulario todavía no envía ni guarda tus datos."
+           data-en="Your information will be used to respond to your inquiry. In this demo version, the form does not yet send or save your information.">
+          Tu información se utilizará para responder a tu consulta. En esta versión de prueba, el formulario todavía no envía ni guarda tus datos.
+        </p>
+        <div id="status" class="status full" role="status"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    HOLLYWOOD NG · Hollywood, Florida
+    <p data-es="Las opciones de financiamiento están sujetas a evaluación y condiciones aplicables."
+       data-en="Financing options are subject to review and applicable terms.">
+      Las opciones de financiamiento están sujetas a evaluación y condiciones aplicables.
+    </p>
+  </footer>
+
+  <script>
+    let language = "es";
+    const langButton = document.getElementById("langButton");
+
+    function setLanguage(nextLanguage) {
+      language = nextLanguage;
+      document.documentElement.lang = language;
+
+      document.querySelectorAll("[data-es][data-en]").forEach(element => {
+        element.textContent = element.dataset[language];
+      });
+
+      document.querySelectorAll("[data-placeholder-es][data-placeholder-en]").forEach(element => {
+        element.placeholder = element.dataset["placeholder" + (language === "es" ? "Es" : "En")];
+      });
+
+      langButton.textContent = language === "es" ? "English" : "Español";
+    }
+
+    langButton.addEventListener("click", () => {
+      setLanguage(language === "es" ? "en" : "es");
+    });
+
+    
+document.getElementById("leadForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const status = document.getElementById("status");
+  status.style.display = "block";
+  status.textContent = language === "es"
+    ? "Enviando tu consulta..."
+    : "Sending your inquiry...";
+
+  const payload = {
+    full_name: form.elements.name.value.trim(),
+    phone: form.elements.phone.value.trim(),
+    city: form.elements.city.value.trim(),
+    vehicle: form.elements.vehicle.value.trim() || null,
+    down_payment: form.elements.down.value || null,
+    purchase_timeline: form.elements.when.value || null,
+    preferred_contact: form.elements.contact.value,
+    language: language
+  };
+
+  const projectUrl = "https://hdmdtwywrjxvezkrppxz.supabase.co";
+  const publicKey = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
+
+  try {
+    const response = await fetch(
+      projectUrl.replace(/\/$/, "") + "/rest/v1/financing_leads",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": publicKey,
+          "Authorization": "Bearer " + publicKey,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    status.textContent = language === "es"
+      ? "¡Consulta enviada correctamente!"
+      : "Inquiry submitted successfully!";
+
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    status.textContent = language === "es"
+      ? "No pudimos enviar tu consulta. Revisá los datos e intentá de nuevo."
+      : "We couldn't submit your inquiry. Please try again.";
+  }
+
+  status.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
+  </script>
+</body>
+</html>
