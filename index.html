@@ -317,15 +317,65 @@
       setLanguage(language === "es" ? "en" : "es");
     });
 
-    document.getElementById("leadForm").addEventListener("submit", event => {
-      event.preventDefault();
-      const status = document.getElementById("status");
-      status.style.display = "block";
-      status.textContent = language === "es"
-        ? "Esta es una demostración: tus datos NO se enviaron ni guardaron. Próximo paso: conectar el formulario de forma segura."
-        : "This is a demo: your information was NOT sent or saved. Next step: securely connect the form.";
-      status.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
+    
+document.getElementById("leadForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const status = document.getElementById("status");
+  status.style.display = "block";
+  status.textContent = language === "es"
+    ? "Enviando tu consulta..."
+    : "Sending your inquiry...";
+
+  const payload = {
+    full_name: form.elements.name.value.trim(),
+    phone: form.elements.phone.value.trim(),
+    city: form.elements.city.value.trim(),
+    vehicle: form.elements.vehicle.value.trim() || null,
+    down_payment: form.elements.down.value || null,
+    purchase_timeline: form.elements.when.value || null,
+    preferred_contact: form.elements.contact.value,
+    language: language
+  };
+
+  const projectUrl = "https://hdmdtwywrjxvezkrppxz.supabase.co";
+  const publicKey = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
+
+  try {
+    const response = await fetch(
+      projectUrl.replace(/\/$/, "") + "/rest/v1/financing_leads",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": publicKey,
+          "Authorization": "Bearer " + publicKey,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    status.textContent = language === "es"
+      ? "¡Consulta enviada correctamente!"
+      : "Inquiry submitted successfully!";
+
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    status.textContent = language === "es"
+      ? "No pudimos enviar tu consulta. Revisá los datos e intentá de nuevo."
+      : "We couldn't submit your inquiry. Please try again.";
+  }
+
+  status.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
   </script>
 </body>
 </html>
