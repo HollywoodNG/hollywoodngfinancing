@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hollywood NG | Panel de clientes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f1f4f9;
+      color: #172033;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background: #101f40;
+      color: white;
+      padding: 22px;
+    }
+    header h1 { margin: 0 0 6px; font-size: 24px; }
+    header p { margin: 0; color: #c9d6f3; }
+    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px #14213d12;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 6px 0;
+      border: 1px solid #cbd3df;
+      border-radius: 7px;
+      font: inherit;
+    }
+    button {
+      cursor: pointer;
+      background: #173d7a;
+      color: white;
+      border: 0;
+      font-weight: bold;
+    }
+    button.secondary { background: #4b5563; }
+    .hidden { display: none; }
+    .muted { color: #64748b; font-size: 14px; }
+    .toolbar {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+    }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 850px; }
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid #e5eaf1;
+      vertical-align: top;
+    }
+    th { background: #f7f9fc; }
+    td input, td select { min-width: 135px; }
+    .message { margin-top: 12px; font-size: 14px; }
+    @media (max-width: 600px) {
+      .toolbar { grid-template-columns: 1fr; }
+      .card { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>HOLLYWOOD NG</h1>
+  <p>Panel privado de clientes · Financing</p>
+</header>
+
+<main>
+  <section id="loginCard" class="card">
+    <h2>Iniciar sesión</h2>
+    <p class="muted">Ingresá con tu usuario administrador.</p>
+    <form id="loginForm">
+      <label for="email">Correo electrónico</label>
+      <input id="email" type="email" required autocomplete="username">
+      <label for="password">Contraseña</label>
+      <input id="password" type="password" required autocomplete="current-password">
+      <button type="submit">Entrar al panel</button>
+    </form>
+    <p id="loginMessage" class="message" role="status"></p>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="card">
+      <h2>Mis clientes</h2>
+      <p id="total" class="muted">Consultas registradas</p>
+      <div class="toolbar">
+        <input id="search" placeholder="Buscar por nombre, teléfono o ciudad">
+        <button id="refresh" type="button">Actualizar lista</button>
+      </div>
+      <button id="logout" class="secondary" type="button">Cerrar sesión</button>
+      <p id="listMessage" class="message" role="status"></p>
+    </div>
+
+    <div class="card table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Teléfono</th>
+            <th>Ciudad</th>
+            <th>Vehículo</th>
+            <th>Entrega inicial</th>
+            <th>Estado</th>
+            <th>Notas</th>
+            <th>Guardar</th>
+          </tr>
+        </thead>
+        <tbody id="clients"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const projectUrl = "https://hdmdtwywrjxvezkrppxz.supabase.co";
+  const publicKey = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
+  const db = window.supabase.createClient(projectUrl, publicKey);
+
+  const loginCard = document.getElementById("loginCard");
+  const dashboard = document.getElementById("dashboard");
+  const loginMessage = document.getElementById("loginMessage");
+  const listMessage = document.getElementById("listMessage");
+  const clients = document.getElementById("clients");
+  let allLeads = [];
+
+  document.getElementById("loginForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    loginMessage.textContent = "Verificando acceso...";
+
+    const { error } = await db.auth.signInWithPassword({
+      email: document.getElementById("email").value.trim(),
+      password: document.getElementById("password").value
+    });
+
+    if (error) {
+      loginMessage.textContent = "No se pudo iniciar sesión. Revisá el correo y la contraseña.";
+      return;
+    }
+
+    await showDashboard();
+  });
+
+  async function showDashboard() {
+    const { data: { session } } = await db.auth.getSession();
+
+    if (!session) {
+      loginCard.classList.remove("hidden");
+      dashboard.classList.add("hidden");
+      return;
+    }
+
+    loginCard.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    await loadLeads();
+  }
+
+  async function loadLeads() {
+    listMessage.textContent = "Cargando clientes...";
+    const { data, error } = await db
+      .from("financing_leads")
+      .select("id, created_at, full_name, phone, city, vehicle, down_payment, status, notes")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      listMessage.textContent = "No se pudieron cargar los clientes. Revisá los permisos de acceso.";
+      return;
+    }
+
+    allLeads = data || [];
+    document.getElementById("total").textContent =
+      "Total de consultas: " + allLeads.length;
+    renderLeads();
+    listMessage.textContent = "";
+  }
+
+  function addCell(row, value) {
+    const cell = document.createElement("td");
+    cell.textContent = value || "—";
+    row.appendChild(cell);
+    return cell;
+  }
+
+  function renderLeads() {
+    const query = document.getElementById("search").value.toLowerCase().trim();
+    clients.replaceChildren();
+
+    const filtered = allLeads.filter(lead =>
+      [lead.full_name, lead.phone, lead.city]
+        .some(value => (value || "").toLowerCase().includes(query))
+    );
+
+    filtered.forEach(lead => {
+      const row = document.createElement("tr");
+      addCell(row, lead.created_at ? new Date(lead.created_at).toLocaleDateString() : "");
+      addCell(row, lead.full_name);
+      addCell(row, lead.phone);
+      addCell(row, lead.city);
+      addCell(row, lead.vehicle);
+      addCell(row, lead.down_payment);
+
+      const statusCell = document.createElement("td");
+      const status = document.createElement("select");
+      ["Nuevo", "Contactado", "En seguimiento", "Cerrado"].forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        status.appendChild(option);
+      });
+      status.value = lead.status || "Nuevo";
+      statusCell.appendChild(status);
+      row.appendChild(statusCell);
+
+      const notesCell = document.createElement("td");
+      const notes = document.createElement("input");
+      notes.value = lead.notes || "";
+      notes.placeholder = "Agregar nota";
+      notesCell.appendChild(notes);
+      row.appendChild(notesCell);
+
+      const saveCell = document.createElement("td");
+      const save = document.createElement("button");
+      save.textContent = "Guardar";
+      save.addEventListener("click", async () => {
+        save.disabled = true;
+        save.textContent = "Guardando...";
+
+        const { error } = await db
+          .from("financing_leads")
+          .update({ status: status.value, notes: notes.value.trim() || null })
+          .eq("id", lead.id);
+
+        if (error) {
+          listMessage.textContent = "No se pudieron guardar los cambios. Revisá los permisos.";
+        } else {
+          lead.status = status.value;
+          lead.notes = notes.value.trim();
+          listMessage.textContent = "Cambios guardados correctamente.";
+        }
+
+        save.disabled = false;
+        save.textContent = "Guardar";
+      });
+      saveCell.appendChild(save);
+      row.appendChild(saveCell);
+      clients.appendChild(row);
+    });
+
+    if (filtered.length === 0) {
+      const row = document.createElement("tr");
+      const cell = document.createElement("td");
+      cell.colSpan = 9;
+      cell.textContent = "No se encontraron clientes.";
+      row.appendChild(cell);
+      clients.appendChild(row);
+    }
+  }
+
+  document.getElementById("search").addEventListener("input", renderLeads);
+  document.getElementById("refresh").addEventListener("click", loadLeads);
+
+  document.getElementById("logout").addEventListener("click", async () => {
+    await db.auth.signOut();
+    dashboard.classList.add("hidden");
+    loginCard.classList.remove("hidden");
+    document.getElementById("password").value = "";
+    loginMessage.textContent = "Sesión cerrada.";
+  });
+
+  db.auth.onAuthStateChange((_event, session) => {
+    if (!session) {
+      loginCard.classList.remove("hidden");
+      dashboard.classList.add("hidden");
+    }
+  });
+
+  showDashboard();
+</script>
+</body>
+</html>
