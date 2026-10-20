@@ -702,8 +702,22 @@
       );
       info.appendChild(name);
 
-      if (vehicle.price !== null && vehicle.price !== undefined && vehicle.price !== "") {
-        info.appendChild(makeText("div", "vehicle-price", formatMoney(vehicle.price)));
+            if (vehicle.down_payment_estimate !== null &&
+          vehicle.down_payment_estimate !== undefined &&
+          vehicle.down_payment_estimate !== "") {
+        info.appendChild(makeText("div", "vehicle-year", "EST. DOWN PAYMENT"));
+        info.appendChild(makeText("div", "vehicle-price", formatMoney(vehicle.down_payment_estimate)));
+      }
+
+      if (vehicle.monthly_payment_estimate !== null &&
+          vehicle.monthly_payment_estimate !== undefined &&
+          vehicle.monthly_payment_estimate !== "") {
+        info.appendChild(makeText("div", "vehicle-year", "EST. MONTHLY PAYMENT"));
+        info.appendChild(makeText("div", "vehicle-price", formatMoney(vehicle.monthly_payment_estimate) + "/mo"));
+      }
+
+      if (!vehicle.down_payment_estimate && !vehicle.monthly_payment_estimate) {
+        info.appendChild(makeText("p", "vehicle-description", "Contact us for estimated financing options."));
       }
 
       const details = document.createElement("div");
@@ -780,7 +794,7 @@
       try {
         const endpoint =
           `${SUPABASE_URL}/rest/v1/inventory` +
-          "?select=id,make,model,year,price,mileage,image_url,description" +
+         "?select=id,make,model,year,mileage,image_url,description,down_payment_estimate,monthly_payment_estimate,payment_term_months,body_type,color,stock_number" +
           "&is_active=eq.true&order=created_at.desc";
 
         const response = await fetch(endpoint, {
