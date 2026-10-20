@@ -2,101 +2,99 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hollywood NG | Panel de clientes</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: #f1f4f9;
-      color: #172033;
-      font-family: Arial, sans-serif;
-    }
-    header {
-      background: #101f40;
-      color: white;
-      padding: 22px;
-    }
-    header h1 { margin: 0 0 6px; font-size: 24px; }
-    header p { margin: 0; color: #c9d6f3; }
-    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 12px #14213d12;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin: 6px 0;
-      border: 1px solid #cbd3df;
-      border-radius: 7px;
-      font: inherit;
-    }
-    button {
-      cursor: pointer;
-      background: #173d7a;
-      color: white;
-      border: 0;
-      font-weight: bold;
-    }
-    button.secondary { background: #4b5563; }
-    .hidden { display: none; }
-    .muted { color: #64748b; font-size: 14px; }
-    .toolbar {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 10px;
-    }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 850px; }
-    th, td {
-      text-align: left;
-      padding: 12px 10px;
-      border-bottom: 1px solid #e5eaf1;
-      vertical-align: top;
-    }
-    th { background: #f7f9fc; }
-    td input, td select { min-width: 135px; }
-    .message { margin-top: 12px; font-size: 14px; }
-    @media (max-width: 600px) {
-      .toolbar { grid-template-columns: 1fr; }
-      .card { padding: 15px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hollywood NG | CRM</title>
+<style>
+:root{--navy:#101c35;--blue:#2458a6;--light:#f3f6fb;--muted:#64748b;--line:#e4e9f2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--light);color:#182338;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#101c35,#204b88);color:white;padding:25px max(20px,calc((100% - 1200px)/2))}
+.brand{font-size:12px;letter-spacing:3px;color:#b9d5ff;font-weight:bold}
+header h1{margin:8px 0;font-size:28px}
+header p{margin:0;color:#d5e1f5}
+main{max-width:1200px;margin:28px auto;padding:0 18px}
+.card{background:white;border:1px solid var(--line);border-radius:15px;padding:22px;margin-bottom:20px;box-shadow:0 5px 20px #18233808}
+h2{margin:0 0 8px;font-size:21px}
+.muted{color:var(--muted);font-size:14px}
+.hidden{display:none!important}
+input,select,button{font:inherit;border-radius:9px;padding:11px 12px}
+input,select{border:1px solid #d4dce8;background:white;color:#182338;max-width:100%;min-width:0}
+button{border:0;background:var(--blue);color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+button.secondary{background:#e9eef7;color:#263a5d}
+.login{max-width:430px;margin:50px auto}
+.login input,.login button{width:100%;margin-top:8px}
+label{display:block;margin-top:12px;font-size:14px;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat{background:white;border:1px solid var(--line);border-radius:14px;padding:18px}
+.stat .label{font-size:13px;color:var(--muted)}
+.stat .number{font-size:30px;font-weight:800;margin-top:9px;color:var(--navy)}
+.stat:before{content:"";display:block;width:32px;height:4px;border-radius:5px;background:#3976d0;margin-bottom:14px}
+.toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;margin-top:18px}
+.table-wrap{overflow-x:auto;padding:0}
+table{border-collapse:collapse;width:100%;min-width:1050px}
+th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#64748b;background:#f8faff}
+th,td{padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+td{font-size:14px}
+td input{width:145px}
+td select{width:150px}
+.status{font-weight:bold}
+.whatsapp{display:inline-block;background:#16854a;color:white;text-decoration:none;font-size:13px;font-weight:bold;padding:10px 12px;border-radius:8px;white-space:nowrap}
+.small{font-size:12px;color:var(--muted)}
+.message{font-size:14px;margin-top:12px}
+#logout{margin-top:14px}
+.empty{text-align:center;padding:30px;color:var(--muted)}
+@media(max-width:700px){
+ header{padding:22px 18px}
+ header h1{font-size:23px}
+ main{margin:18px auto;padding:0 12px}
+ .card{padding:16px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .stat{padding:14px}
+ .stat .number{font-size:26px}
+ .toolbar{grid-template-columns:1fr}
+ .toolbar button{width:100%}
+}
+</style>
 </head>
 <body>
 <header>
-  <h1>HOLLYWOOD NG</h1>
-  <p>Panel privado de clientes · Financing</p>
+  <div class="brand">HOLLYWOOD NG · FINANCING</div>
+  <h1>Customer Dashboard</h1>
+  <p>Manage leads. Follow up. Close deals.</p>
 </header>
 
 <main>
-  <section id="loginCard" class="card">
-    <h2>Iniciar sesión</h2>
-    <p class="muted">Ingresá con tu usuario administrador.</p>
+  <section id="loginCard" class="card login">
+    <h2>Welcome back</h2>
+    <p class="muted">Sign in to access your private customer panel.</p>
     <form id="loginForm">
-      <label for="email">Correo electrónico</label>
+      <label for="email">Email</label>
       <input id="email" type="email" required autocomplete="username">
-      <label for="password">Contraseña</label>
+      <label for="password">Password</label>
       <input id="password" type="password" required autocomplete="current-password">
-      <button type="submit">Entrar al panel</button>
+      <button type="submit">Sign in</button>
     </form>
     <p id="loginMessage" class="message" role="status"></p>
   </section>
 
   <section id="dashboard" class="hidden">
+    <div class="stats">
+      <div class="stat"><div class="label">Total leads</div><div id="countAll" class="number">0</div></div>
+      <div class="stat"><div class="label">New</div><div id="countNew" class="number">0</div></div>
+      <div class="stat"><div class="label">Following up</div><div id="countFollow" class="number">0</div></div>
+      <div class="stat"><div class="label">Closed</div><div id="countClosed" class="number">0</div></div>
+    </div>
+
     <div class="card">
-      <h2>Mis clientes</h2>
-      <p id="total" class="muted">Consultas registradas</p>
+      <h2>Your customers</h2>
+      <p class="muted">Search contacts, update their status and reach out on WhatsApp.</p>
       <div class="toolbar">
-        <input id="search" placeholder="Buscar por nombre, teléfono o ciudad">
-        <button id="refresh" type="button">Actualizar lista</button>
+        <input id="search" type="search" placeholder="Search name, phone or city...">
+        <button id="refresh" type="button">↻ Refresh</button>
+        <button id="logout" class="secondary" type="button">Sign out</button>
       </div>
-      <button id="logout" class="secondary" type="button">Cerrar sesión</button>
       <p id="listMessage" class="message" role="status"></p>
     </div>
 
@@ -104,187 +102,212 @@
       <table>
         <thead>
           <tr>
-            <th>Fecha</th>
-            <th>Cliente</th>
-            <th>Teléfono</th>
-            <th>Ciudad</th>
-            <th>Vehículo</th>
-            <th>Entrega inicial</th>
-            <th>Estado</th>
-            <th>Notas</th>
-            <th>Guardar</th>
+            <th>Date</th><th>Customer</th><th>Phone</th><th>City</th>
+            <th>Vehicle</th><th>Down payment</th><th>Status</th>
+            <th>Notes</th><th>WhatsApp</th><th>Save</th>
           </tr>
         </thead>
         <tbody id="clients"></tbody>
       </table>
     </div>
+    <p class="small">Customer information is private. Sign out when you finish using the panel.</p>
   </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const projectUrl = "https://hdmdtwywrjxvezkrppxz.supabase.co";
-  const publicKey = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
-  const db = window.supabase.createClient(projectUrl, publicKey);
+const projectUrl = "https://hdmdtwywrjxvezkrppxz.supabase.co";
+const publicKey = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
+const db = window.supabase.createClient(projectUrl, publicKey);
 
-  const loginCard = document.getElementById("loginCard");
-  const dashboard = document.getElementById("dashboard");
-  const loginMessage = document.getElementById("loginMessage");
-  const listMessage = document.getElementById("listMessage");
-  const clients = document.getElementById("clients");
-  let allLeads = [];
+const loginCard = document.getElementById("loginCard");
+const dashboard = document.getElementById("dashboard");
+const loginMessage = document.getElementById("loginMessage");
+const listMessage = document.getElementById("listMessage");
+const clients = document.getElementById("clients");
+let allLeads = [];
 
-  document.getElementById("loginForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    loginMessage.textContent = "Verificando acceso...";
-
-    const { error } = await db.auth.signInWithPassword({
-      email: document.getElementById("email").value.trim(),
-      password: document.getElementById("password").value
-    });
-
-    if (error) {
-      loginMessage.textContent = "No se pudo iniciar sesión. Revisá el correo y la contraseña.";
-      return;
-    }
-
-    await showDashboard();
+document.getElementById("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  loginMessage.textContent = "Signing in...";
+  const {error} = await db.auth.signInWithPassword({
+    email: document.getElementById("email").value.trim(),
+    password: document.getElementById("password").value
   });
+  if (error) {
+    loginMessage.textContent = "Login failed. Check your email and password.";
+    return;
+  }
+  await showDashboard();
+});
 
-  async function showDashboard() {
-    const { data: { session } } = await db.auth.getSession();
+async function showDashboard() {
+  const {data:{session}} = await db.auth.getSession();
+  if (!session) {
+    loginCard.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+    return;
+  }
+  loginCard.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  await loadLeads();
+}
 
-    if (!session) {
-      loginCard.classList.remove("hidden");
-      dashboard.classList.add("hidden");
-      return;
-    }
+async function loadLeads() {
+  listMessage.textContent = "Loading customers...";
+  const {data,error} = await db.from("financing_leads")
+    .select("id,created_at,full_name,phone,city,vehicle,down_payment,status,notes,language")
+    .order("created_at",{ascending:false});
+  if (error) {
+    listMessage.textContent = "Couldn't load customers. Check your admin permissions.";
+    return;
+  }
+  allLeads = data || [];
+  updateStats();
+  renderLeads();
+  listMessage.textContent = "";
+}
 
-    loginCard.classList.add("hidden");
-    dashboard.classList.remove("hidden");
-    await loadLeads();
+function updateStats() {
+  document.getElementById("countAll").textContent = allLeads.length;
+  document.getElementById("countNew").textContent =
+    allLeads.filter(x => (x.status || "Nuevo") === "Nuevo").length;
+  document.getElementById("countFollow").textContent =
+    allLeads.filter(x => x.status === "Contactado" || x.status === "En seguimiento").length;
+  document.getElementById("countClosed").textContent =
+    allLeads.filter(x => x.status === "Cerrado").length;
+}
+
+function cell(row,value) {
+  const td = document.createElement("td");
+  td.textContent = value || "—";
+  row.appendChild(td);
+  return td;
+}
+
+function whatsappNumber(phone) {
+  let digits = String(phone || "").replace(/\D/g,"");
+  // US numbers with 10 digits receive the default US country code.
+  if (digits.length === 10) digits = "1" + digits;
+  // 11-digit US numbers beginning with 1 are already in international format.
+  // For other countries, enter the country code in the phone field.
+  return digits;
+}
+
+function renderLeads() {
+  const query = document.getElementById("search").value.toLowerCase().trim();
+  clients.replaceChildren();
+
+  const filtered = allLeads.filter(lead =>
+    [lead.full_name,lead.phone,lead.city,lead.vehicle]
+      .some(value => String(value || "").toLowerCase().includes(query))
+  );
+
+  if (!filtered.length) {
+    const row = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 10;
+    td.className = "empty";
+    td.textContent = "No customers found.";
+    row.appendChild(td);
+    clients.appendChild(row);
+    return;
   }
 
-  async function loadLeads() {
-    listMessage.textContent = "Cargando clientes...";
-    const { data, error } = await db
-      .from("financing_leads")
-      .select("id, created_at, full_name, phone, city, vehicle, down_payment, status, notes")
-      .order("created_at", { ascending: false });
+  filtered.forEach(lead => {
+    const row = document.createElement("tr");
+    cell(row,lead.created_at ? new Date(lead.created_at).toLocaleDateString() : "");
+    cell(row,lead.full_name);
+    cell(row,lead.phone);
+    cell(row,lead.city);
+    cell(row,lead.vehicle);
+    cell(row,lead.down_payment);
 
-    if (error) {
-      listMessage.textContent = "No se pudieron cargar los clientes. Revisá los permisos de acceso.";
-      return;
-    }
-
-    allLeads = data || [];
-    document.getElementById("total").textContent =
-      "Total de consultas: " + allLeads.length;
-    renderLeads();
-    listMessage.textContent = "";
-  }
-
-  function addCell(row, value) {
-    const cell = document.createElement("td");
-    cell.textContent = value || "—";
-    row.appendChild(cell);
-    return cell;
-  }
-
-  function renderLeads() {
-    const query = document.getElementById("search").value.toLowerCase().trim();
-    clients.replaceChildren();
-
-    const filtered = allLeads.filter(lead =>
-      [lead.full_name, lead.phone, lead.city]
-        .some(value => (value || "").toLowerCase().includes(query))
-    );
-
-    filtered.forEach(lead => {
-      const row = document.createElement("tr");
-      addCell(row, lead.created_at ? new Date(lead.created_at).toLocaleDateString() : "");
-      addCell(row, lead.full_name);
-      addCell(row, lead.phone);
-      addCell(row, lead.city);
-      addCell(row, lead.vehicle);
-      addCell(row, lead.down_payment);
-
-      const statusCell = document.createElement("td");
-      const status = document.createElement("select");
-      ["Nuevo", "Contactado", "En seguimiento", "Cerrado"].forEach(value => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        status.appendChild(option);
-      });
-      status.value = lead.status || "Nuevo";
-      statusCell.appendChild(status);
-      row.appendChild(statusCell);
-
-      const notesCell = document.createElement("td");
-      const notes = document.createElement("input");
-      notes.value = lead.notes || "";
-      notes.placeholder = "Agregar nota";
-      notesCell.appendChild(notes);
-      row.appendChild(notesCell);
-
-      const saveCell = document.createElement("td");
-      const save = document.createElement("button");
-      save.textContent = "Guardar";
-      save.addEventListener("click", async () => {
-        save.disabled = true;
-        save.textContent = "Guardando...";
-
-        const { error } = await db
-          .from("financing_leads")
-          .update({ status: status.value, notes: notes.value.trim() || null })
-          .eq("id", lead.id);
-
-        if (error) {
-          listMessage.textContent = "No se pudieron guardar los cambios. Revisá los permisos.";
-        } else {
-          lead.status = status.value;
-          lead.notes = notes.value.trim();
-          listMessage.textContent = "Cambios guardados correctamente.";
-        }
-
-        save.disabled = false;
-        save.textContent = "Guardar";
-      });
-      saveCell.appendChild(save);
-      row.appendChild(saveCell);
-      clients.appendChild(row);
+    const statusCell = document.createElement("td");
+    const status = document.createElement("select");
+    status.className = "status";
+    ["Nuevo","Contactado","En seguimiento","Cerrado"].forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      status.appendChild(option);
     });
+    status.value = lead.status || "Nuevo";
+    statusCell.appendChild(status);
+    row.appendChild(statusCell);
 
-    if (filtered.length === 0) {
-      const row = document.createElement("tr");
-      const cell = document.createElement("td");
-      cell.colSpan = 9;
-      cell.textContent = "No se encontraron clientes.";
-      row.appendChild(cell);
-      clients.appendChild(row);
+    const notesCell = document.createElement("td");
+    const notes = document.createElement("input");
+    notes.placeholder = "Add notes";
+    notes.value = lead.notes || "";
+    notesCell.appendChild(notes);
+    row.appendChild(notesCell);
+
+    const waCell = document.createElement("td");
+    const wa = document.createElement("a");
+    const phone = whatsappNumber(lead.phone);
+    const message = lead.language === "en"
+      ? "Hi " + lead.full_name + "! This is Nacho from Hollywood NG. I received your vehicle financing inquiry. Are you still looking for a car? I can help you explore your options."
+      : "Hola " + lead.full_name + ", soy Nacho de Hollywood NG. Recibí tu consulta sobre financiamiento de vehículos. ¿Seguís buscando un auto? Te puedo ayudar a revisar las opciones disponibles.";
+    if (phone.length >= 10) {
+      wa.className = "whatsapp";
+      wa.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+      wa.target = "_blank";
+      wa.rel = "noopener noreferrer";
+      wa.textContent = "WhatsApp ↗";
+    } else {
+      wa.textContent = "Check phone";
+      wa.className = "small";
     }
-  }
+    waCell.appendChild(wa);
+    row.appendChild(waCell);
 
-  document.getElementById("search").addEventListener("input", renderLeads);
-  document.getElementById("refresh").addEventListener("click", loadLeads);
+    const saveCell = document.createElement("td");
+    const save = document.createElement("button");
+    save.textContent = "Save";
+    save.addEventListener("click",async () => {
+      save.disabled = true;
+      save.textContent = "Saving...";
+      const {error} = await db.from("financing_leads")
+        .update({status:status.value,notes:notes.value.trim() || null})
+        .eq("id",lead.id);
+      if (error) {
+        listMessage.textContent = "Couldn't save changes. Check your admin permissions.";
+      } else {
+        lead.status = status.value;
+        lead.notes = notes.value.trim();
+        updateStats();
+        listMessage.textContent = "Changes saved successfully.";
+      }
+      save.disabled = false;
+      save.textContent = "Save";
+    });
+    saveCell.appendChild(save);
+    row.appendChild(saveCell);
+    clients.appendChild(row);
+  });
+}
 
-  document.getElementById("logout").addEventListener("click", async () => {
-    await db.auth.signOut();
+document.getElementById("search").addEventListener("input",renderLeads);
+document.getElementById("refresh").addEventListener("click",loadLeads);
+document.getElementById("logout").addEventListener("click",async () => {
+  await db.auth.signOut();
+  allLeads = [];
+  clients.replaceChildren();
+  dashboard.classList.add("hidden");
+  loginCard.classList.remove("hidden");
+  document.getElementById("password").value = "";
+  loginMessage.textContent = "Signed out.";
+});
+
+db.auth.onAuthStateChange((_event,session) => {
+  if (!session) {
     dashboard.classList.add("hidden");
     loginCard.classList.remove("hidden");
-    document.getElementById("password").value = "";
-    loginMessage.textContent = "Sesión cerrada.";
-  });
+  }
+});
 
-  db.auth.onAuthStateChange((_event, session) => {
-    if (!session) {
-      loginCard.classList.remove("hidden");
-      dashboard.classList.add("hidden");
-    }
-  });
-
-  showDashboard();
+showDashboard();
 </script>
 </body>
 </html>
