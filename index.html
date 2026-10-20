@@ -1,381 +1,819 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#071a35">
-  <title>Hollywood NG | Car Financing</title>
- 
-<style>
-:root {
-  --navy: #071a35;
-  --blue: #1459c7;
-  --light: #f3f6fb;
-  --text: #17243a;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--light);
-  color: var(--text);
-}
-header {
-  background: var(--navy);
-  color: white;
-  padding: 18px 6%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-.logo { font-size: 21px; font-weight: 800; letter-spacing: 1px; }
-.logo span { color: #67a5ff; }
-button, input, select, textarea { font: inherit; }
-.lang {
-  background: transparent;
-  color: white;
-  border: 1px solid #8ba9d3;
-  border-radius: 8px;
-  padding: 9px 12px;
-  cursor: pointer;
-}
-.hero {
-  background: radial-gradient(ellipse at top right, #2864ad 0%, #123665 42%, #071a35 78%);
-  color: white;
-  padding: 76px 6% 88px;
-  text-align: center;
-}
-.tag {
-  color: #b9d7ff;
-  font-weight: bold;
-  letter-spacing: 2px;
-  font-size: 12px;
-}
-h1 {
-  font-size: clamp(34px, 6vw, 58px);
-  line-height: 1.08;
-  max-width: 800px;
-  margin: 18px auto;
-}
-.hero p {
-  max-width: 610px;
-  margin: 0 auto 27px;
-  color: #e0eaff;
-  line-height: 1.7;
-  font-size: 17px;
-}
-.cta {
-  display: inline-block;
-  background: white;
-  color: var(--navy);
-  padding: 15px 23px;
-  border-radius: 9px;
-  font-weight: 800;
-  text-decoration: none;
-  transition: transform .2s, background .2s;
-}
-.cta:hover { background: #e7f0ff; transform: translateY(-2px); }
-main {
-  width: min(1000px, 92%);
-  margin: -25px auto 50px;
-  position: relative;
-}
-.benefits {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 28px;
-}
-.benefit {
-  background: white;
-  border: 1px solid #e4eaf3;
-  border-radius: 14px;
-  padding: 23px 16px;
-  text-align: center;
-  box-shadow: 0 8px 24px #102b4a0c;
-}
-.benefit strong { display: block; margin-bottom: 9px; }
-.benefit span { font-size: 13px; color: #627087; line-height: 1.6; }
-.form-card {
-  background: white;
-  border: 1px solid #e4eaf3;
-  border-radius: 18px;
-  padding: clamp(22px, 5vw, 42px);
-  box-shadow: 0 12px 36px #102b4a12;
-}
-h2 { color: var(--navy); margin-top: 0; font-size: 28px; }
-.sub { color: #637087; line-height: 1.7; margin-bottom: 25px; }
-#leadForm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
-.field { display: flex; flex-direction: column; gap: 8px; }
-.full { grid-column: 1 / -1; }
-label { font-size: 14px; font-weight: 700; }
-input, select, textarea {
-  width: 100%;
-  border: 1px solid #d4dce8;
-  border-radius: 9px;
-  padding: 14px;
-  background: white;
-  color: #17243a;
-  min-width: 0;
-}
-input:focus, select:focus, textarea:focus {
-  outline: 2px solid #9fc4ff;
-  border-color: var(--blue);
-}
-#consent { width: auto; }
-.submit {
-  grid-column: 1 / -1;
-  background: var(--blue);
-  color: white;
-  border: 0;
-  padding: 17px;
-  border-radius: 9px;
-  font-weight: 800;
-  cursor: pointer;
-}
-.submit:hover { background: #0c459e; }
-.privacy { font-size: 12px; line-height: 1.7; color: #68758a; }
-.status {
-  display: none;
-  padding: 14px;
-  background: #e9f7ee;
-  color: #176338;
-  border-radius: 8px;
-  line-height: 1.5;
-}
-footer {
-  text-align: center;
-  padding: 28px 18px;
-  background: var(--navy);
-  color: #dce7f7;
-  font-size: 13px;
-  line-height: 1.7;
-}
-@media (max-width: 600px) {
-  header { padding: 16px 5%; }
-  .logo { font-size: 18px; }
-  .hero { padding: 55px 5% 68px; }
-  main { width: 92%; }
-  .benefits { grid-template-columns: 1fr; gap: 10px; }
-  .benefit { padding: 17px; }
-  #leadForm { grid-template-columns: 1fr; }
-  #leadForm .full, #leadForm .submit { grid-column: 1; }
-}
-</style>
+  <title>Hollywood NG | Find Your Next Car</title>
+  <meta name="description" content="Explore available vehicles at Hollywood NG in South Florida and start your financing inquiry online.">
 
+  <style>
+    :root {
+      --navy: #071a35;
+      --navy-light: #102c52;
+      --blue: #2875ed;
+      --blue-light: #73aaff;
+      --text: #15243b;
+      --muted: #66758b;
+      --surface: #ffffff;
+      --background: #f3f6fb;
+      --border: #e1e8f2;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--background);
+    }
+
+    a { text-decoration: none; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(7, 26, 53, .97);
+      backdrop-filter: blur(12px);
+      color: white;
+      padding: 17px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .brand {
+      color: white;
+      font-weight: 900;
+      letter-spacing: 1.4px;
+      font-size: 21px;
+      white-space: nowrap;
+    }
+
+    .brand span { color: var(--blue-light); }
+
+    .nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: #e1eaff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-link:hover { color: white; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 19px;
+      border-radius: 9px;
+      font-weight: 800;
+      font-size: 14px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .18s, background .18s;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button-primary {
+      background: var(--blue);
+      color: white;
+    }
+
+    .button-primary:hover { background: #1c61cc; }
+
+    .button-light {
+      background: white;
+      color: var(--navy);
+    }
+
+    .button-outline {
+      color: white;
+      border-color: #7190b9;
+      background: transparent;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 90% 15%, rgba(40,117,237,.5), transparent 42%),
+        linear-gradient(115deg, #071a35 0%, #0b2244 58%, #133c70 100%);
+      color: white;
+      padding: 78px 5% 70px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      right: -170px;
+      bottom: -280px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%;
+      box-shadow: 0 0 0 45px rgba(255,255,255,.025),
+                  0 0 0 90px rgba(255,255,255,.025);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .eyebrow {
+      color: #96c3ff;
+      letter-spacing: 2.5px;
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 750px;
+      margin: 18px 0;
+      font-size: clamp(42px, 6vw, 72px);
+      letter-spacing: -2.5px;
+      line-height: 1.04;
+    }
+
+    .hero-copy {
+      max-width: 610px;
+      color: #d7e4f8;
+      font-size: 17px;
+      line-height: 1.8;
+      margin: 0 0 27px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-panel {
+      padding: 29px;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    }
+
+    .panel-label {
+      color: #9dbce7;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .panel-title {
+      font-size: 27px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin: 15px 0;
+    }
+
+    .panel-copy {
+      color: #d0ddf0;
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .panel-rule {
+      height: 1px;
+      background: rgba(255,255,255,.16);
+      margin: 22px 0;
+    }
+
+    .panel-point {
+      display: flex;
+      gap: 11px;
+      margin: 14px 0;
+      font-size: 14px;
+      color: #edf4ff;
+      line-height: 1.5;
+    }
+
+    .check {
+      color: #82b5ff;
+      font-weight: 900;
+    }
+
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 1200px;
+      margin: -24px auto 0;
+      padding: 0 5%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .trust-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 21px;
+      box-shadow: 0 8px 24px rgba(16,43,74,.05);
+    }
+
+    .trust-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .trust-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .inventory-section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 78px 5% 85px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 25px;
+      margin-bottom: 29px;
+    }
+
+    .section-kicker {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 43px);
+      letter-spacing: -1.3px;
+      margin: 10px 0;
+      color: var(--navy);
+    }
+
+    .section-description {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+      max-width: 600px;
+      font-size: 14px;
+    }
+
+    .search {
+      width: min(100%, 300px);
+      padding: 13px 15px;
+      border: 1px solid #d5deeb;
+      border-radius: 9px;
+      background: white;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(40,117,237,.12);
+    }
+
+    .inventory-count {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 19px;
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .vehicle-card {
+      min-width: 0;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      box-shadow: 0 9px 25px rgba(15,39,72,.045);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .vehicle-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px rgba(15,39,72,.1);
+    }
+
+    .vehicle-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background:
+        radial-gradient(ellipse at 50% 20%, #285181, transparent 65%),
+        linear-gradient(135deg, #0d2342, #152d4f);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .vehicle-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .no-photo {
+      color: #c2d4ef;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .vehicle-info { padding: 22px; }
+
+    .vehicle-year {
+      display: inline-block;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 9px;
+    }
+
+    .vehicle-name {
+      color: var(--navy);
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .vehicle-price {
+      color: var(--navy);
+      font-size: 21px;
+      font-weight: 900;
+      margin: 15px 0 10px;
+    }
+
+    .vehicle-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 12px 0;
+    }
+
+    .detail-pill {
+      background: #f1f5fb;
+      border: 1px solid #e5ebf4;
+      padding: 6px 9px;
+      border-radius: 6px;
+    }
+
+    .vehicle-description {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 13px 0 19px;
+      overflow-wrap: anywhere;
+    }
+
+    .vehicle-button {
+      display: flex;
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .empty-state {
+      border: 1px dashed #c6d3e5;
+      border-radius: 16px;
+      padding: 46px 22px;
+      background: rgba(255,255,255,.8);
+      text-align: center;
+    }
+
+    .empty-symbol {
+      font-size: 35px;
+      margin-bottom: 12px;
+    }
+
+    .empty-state h3 {
+      color: var(--navy);
+      margin: 0 0 10px;
+      font-size: 23px;
+    }
+
+    .empty-state p {
+      max-width: 520px;
+      margin: 0 auto 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .status-message {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      padding: 25px 0;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(110deg, #0b2142, #123c72);
+      color: white;
+      padding: 43px 5%;
+    }
+
+    .bottom-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .bottom-cta h2 {
+      color: white;
+      font-size: clamp(26px, 4vw, 36px);
+      margin: 0 0 10px;
+    }
+
+    .bottom-cta p {
+      color: #d1def1;
+      line-height: 1.7;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    footer {
+      background: #06142a;
+      color: #c2cfe2;
+      padding: 27px 5%;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 850px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 35px; }
+      .hero-panel { max-width: 540px; }
+      .inventory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { align-items: start; flex-direction: column; }
+      .search { width: 100%; max-width: none; }
+    }
+
+    @media (max-width: 600px) {
+      .topbar { padding: 15px 5%; }
+      .brand { font-size: 17px; }
+      .nav { gap: 12px; }
+      .nav-link { display: none; }
+      .nav .button { padding: 11px 12px; font-size: 12px; }
+      .hero { padding: 56px 5% 55px; }
+      h1 { letter-spacing: -1.5px; }
+      .hero-copy { font-size: 15px; }
+      .hero-panel { padding: 22px; }
+      .trust-strip { grid-template-columns: 1fr; margin-top: 18px; }
+      .inventory-section { padding: 55px 5%; }
+      .inventory-grid { grid-template-columns: 1fr; }
+      .bottom-inner { align-items: start; flex-direction: column; }
+      footer { flex-direction: column; gap: 5px; }
+    }
+  </style>
 </head>
+
 <body>
-  <header>
-    <div class="logo">HOLLYWOOD <span>NG</span></div>
-    <button class="lang" id="langButton" type="button">English</button>
+  <header class="topbar">
+    <a class="brand" href="index.html">HOLLYWOOD <span>NG</span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="nav-link" href="#inventory">Inventory</a>
+      <a class="button button-primary" href="financing.html">Get Financing ↗</a>
+    </nav>
   </header>
 
   <section class="hero">
-    <div class="tag" data-es="TU PRÓXIMO AUTO EMPIEZA ACÁ" data-en="YOUR NEXT CAR STARTS HERE">
-      TU PRÓXIMO AUTO EMPIEZA ACÁ
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">HOLLYWOOD, FLORIDA · SOUTH FLORIDA</div>
+        <h1>Find your next <span style="color:#80b5ff">ride.</span></h1>
+        <p class="hero-copy">
+          Explore our available vehicles and find the one that fits your next move.
+          Ready to take the next step? Send us a financing inquiry online.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-light" href="#inventory">Explore Inventory ↓</a>
+          <a class="button button-outline" href="financing.html">Get Financing ↗</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="panel-label">YOUR NEXT CAR STARTS HERE</div>
+        <div class="panel-title">The right vehicle.<br>The next chapter.</div>
+        <p class="panel-copy">
+          Browse the vehicles currently available at Hollywood NG. Have a specific
+          model in mind? Send us your inquiry and tell us what you're looking for.
+        </p>
+        <div class="panel-rule"></div>
+        <div class="panel-point"><span class="check">✓</span><span>Browse available vehicles in one place</span></div>
+        <div class="panel-point"><span class="check">✓</span><span>Ask about financing options</span></div>
+        <div class="panel-point"><span class="check">✓</span><span>Submit an inquiry online</span></div>
+      </div>
     </div>
-    <h1 data-es="Encontrá tu próximo auto con Hollywood NG"
-        data-en="Find Your Next Car with Hollywood NG">
-      Encontrá tu próximo auto con Hollywood NG
-    </h1>
-    <p data-es="Contanos qué estás buscando. Nuestro equipo se pondrá en contacto con vos para conversar sobre las opciones de financiamiento disponibles."
-       data-en="Tell us what you're looking for. Our team will contact you to discuss available financing options.">
-      Contanos qué estás buscando. Nuestro equipo se pondrá en contacto con vos para conversar sobre las opciones de financiamiento disponibles.
-    </p>
-    <a class="cta" href="#application" data-es="QUIERO MÁS INFORMACIÓN"
-       data-en="I'M INTERESTED">QUIERO MÁS INFORMACIÓN</a>
+  </section>
+
+  <section class="trust-strip" aria-label="Shopping at Hollywood NG">
+    <div class="trust-item">
+      <strong>🚘 Available Inventory</strong>
+      <span>Explore the vehicles currently published on our website.</span>
+    </div>
+    <div class="trust-item">
+      <strong>🤝 Personal Assistance</strong>
+      <span>Tell us what you're looking for and our team can follow up.</span>
+    </div>
+    <div class="trust-item">
+      <strong>📱 Online Financing Inquiry</strong>
+      <span>Send your information securely through our application form.</span>
+    </div>
   </section>
 
   <main>
-    <section class="benefits">
-      <div class="benefit">
-        <strong data-es="🚘 Opciones para vos" data-en="🚘 Options for you">🚘 Opciones para vos</strong>
-        <span data-es="Contanos qué vehículo te interesa." data-en="Tell us which vehicle interests you.">Contanos qué vehículo te interesa.</span>
+    <section class="inventory-section" id="inventory">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">FIND YOUR MATCH</div>
+          <h2>Explore our inventory</h2>
+          <p class="section-description">
+            Browse available vehicles below. Select a vehicle to start a financing inquiry.
+          </p>
+        </div>
+        <input
+          id="vehicleSearch"
+          class="search"
+          type="search"
+          placeholder="Search make, model, or year..."
+          aria-label="Search vehicles"
+        >
       </div>
-      <div class="benefit">
-        <strong data-es="🤝 Atención personalizada" data-en="🤝 Personal assistance">🤝 Atención personalizada</strong>
-        <span data-es="Un miembro de nuestro equipo te contactará." data-en="A member of our team will contact you.">Un miembro de nuestro equipo te contactará.</span>
+
+      <p class="inventory-count" id="inventoryCount">Loading inventory...</p>
+
+      <div id="inventoryStatus" class="status-message" role="status">
+        Loading available vehicles...
       </div>
-      <div class="benefit">
-        <strong data-es="📱 Fácil y rápido" data-en="📱 Easy and simple">📱 Fácil y rápido</strong>
-        <span data-es="Dejanos tus datos desde tu celular." data-en="Send us your information from your phone.">Dejanos tus datos desde tu celular.</span>
-      </div>
-    </section>
 
-    <section class="form-card" id="application">
-      <h2 data-es="Solicitá información" data-en="Request Information">Solicitá información</h2>
-      <p class="sub" data-es="Completá el formulario y nos comunicaremos con vos. Enviar este formulario no garantiza la aprobación de un financiamiento."
-         data-en="Complete the form and we'll contact you. Submitting this form does not guarantee financing approval.">
-        Completá el formulario y nos comunicaremos con vos. Enviar este formulario no garantiza la aprobación de un financiamiento.
-      </p>
+      <div id="inventoryGrid" class="inventory-grid"></div>
 
-      <form id="leadForm">
-        <div class="field">
-          <label for="name" data-es="Nombre completo *" data-en="Full name *">Nombre completo *</label>
-          <input id="name" name="name" autocomplete="name" required maxlength="100">
-        </div>
-
-        <div class="field">
-          <label for="phone" data-es="Teléfono *" data-en="Phone number *">Teléfono *</label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="30">
-        </div>
-
-        <div class="field">
-          <label for="city" data-es="Ciudad donde vivís *" data-en="City where you live *">Ciudad donde vivís *</label>
-          <input id="city" name="city" autocomplete="address-level2" required maxlength="100">
-        </div>
-
-        <div class="field">
-          <label for="vehicle" data-es="¿Qué vehículo buscás?" data-en="What vehicle are you looking for?">¿Qué vehículo buscás?</label>
-          <input id="vehicle" name="vehicle" maxlength="100"
-            data-placeholder-es="Ej.: Toyota Camry, SUV, pickup"
-            data-placeholder-en="E.g., Toyota Camry, SUV, pickup"
-            placeholder="Ej.: Toyota Camry, SUV, pickup">
-        </div>
-
-        <div class="field">
-          <label for="down" data-es="¿Cuánto pensás dar de entrada?" data-en="How much are you considering for a down payment?">¿Cuánto pensás dar de entrada?</label>
-          <select id="down" name="down">
-            <option value="" data-es="Seleccionar" data-en="Select">Seleccionar</option>
-            <option value="Under $2000" data-es="Menos de $2.000" data-en="Under $2,000">Menos de $2.000</option>
-            <option value="$2000-$4000" data-es="$2.000–$4.000" data-en="$2,000–$4,000">$2.000–$4.000</option>
-            <option value="$4000+" data-es="$4.000 o más" data-en="$4,000 or more">$4.000 o más</option>
-            <option value="Not sure" data-es="Todavía no sé" data-en="Not sure yet">Todavía no sé</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="when" data-es="¿Cuándo querés comprar?" data-en="When would you like to buy?">¿Cuándo querés comprar?</label>
-          <select id="when" name="when">
-            <option value="" data-es="Seleccionar" data-en="Select">Seleccionar</option>
-            <option value="As soon as possible" data-es="Lo antes posible" data-en="As soon as possible">Lo antes posible</option>
-            <option value="Within 30 days" data-es="Dentro de 30 días" data-en="Within 30 days">Dentro de 30 días</option>
-            <option value="Just looking" data-es="Estoy averiguando" data-en="Just looking">Estoy averiguando</option>
-          </select>
-        </div>
-
-        <div class="field full">
-          <label for="contact" data-es="¿Cómo preferís que te contactemos?" data-en="How would you prefer us to contact you?">¿Cómo preferís que te contactemos?</label>
-          <select id="contact" name="contact">
-            <option value="WhatsApp">WhatsApp</option>
-            <option value="Phone call" data-es="Llamada telefónica" data-en="Phone call">Llamada telefónica</option>
-            <option value="Text message" data-es="Mensaje de texto" data-en="Text message">Mensaje de texto</option>
-          </select>
-        </div>
-
-        <div class="field full">
-          <label style="font-weight:400;line-height:1.6">
-            <input type="checkbox" id="consent" required style="width:auto;display:inline">
-            <span data-es="Acepto que Hollywood NG me contacte en relación con mi consulta. Enviar el formulario no garantiza la aprobación de financiamiento."
-              data-en="I agree that Hollywood NG may contact me about my inquiry. Submitting this form does not guarantee financing approval.">
-              Acepto que Hollywood NG me contacte en relación con mi consulta. Enviar el formulario no garantiza la aprobación de financiamiento.
-            </span>
-          </label>
-        </div>
-
-        <button class="submit" type="submit" data-es="ENVIAR MI CONSULTA" data-en="SUBMIT MY INQUIRY">ENVIAR MI CONSULTA</button>
-        <p class="privacy full" data-es="Tu información se utilizará para responder a tu consulta. En esta versión de prueba, el formulario todavía no envía ni guarda tus datos."
-           data-en="Your information will be used to respond to your inquiry. In this demo version, the form does not yet send or save your information.">
-          Tu información se utilizará para responder a tu consulta. En esta versión de prueba, el formulario todavía no envía ni guarda tus datos.
+      <div id="emptyState" class="empty-state" hidden>
+        <div class="empty-symbol">🚘</div>
+        <h3 id="emptyTitle">Our inventory is being updated.</h3>
+        <p id="emptyText">
+          We're updating our available vehicles. In the meantime, send us a financing inquiry
+          and tell us which vehicle you're looking for.
         </p>
-        <div id="status" class="status full" role="status"></div>
-      </form>
+        <a class="button button-primary" href="financing.html">Start a Financing Inquiry ↗</a>
+      </div>
     </section>
   </main>
 
+  <section class="bottom-cta">
+    <div class="bottom-inner">
+      <div>
+        <h2>Ready for your next vehicle?</h2>
+        <p>Send us your information and tell us what you're looking for.</p>
+      </div>
+      <a class="button button-light" href="financing.html">Get Financing ↗</a>
+    </div>
+  </section>
+
   <footer>
-    HOLLYWOOD NG · Hollywood, Florida
-    <p data-es="Las opciones de financiamiento están sujetas a evaluación y condiciones aplicables."
-       data-en="Financing options are subject to review and applicable terms.">
-      Las opciones de financiamiento están sujetas a evaluación y condiciones aplicables.
-    </p>
+    <span><strong>HOLLYWOOD NG</strong> · Hollywood, Florida</span>
+    <span>Financing is subject to review and applicable terms. An inquiry does not guarantee approval.</span>
   </footer>
 
   <script>
-    let language = "es";
-    const langButton = document.getElementById("langButton");
+    const SUPABASE_URL = "https://hdmdtwywrjxvezkrppxz.supabase.co";
+    const SUPABASE_PUBLIC_KEY = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
 
-    function setLanguage(nextLanguage) {
-      language = nextLanguage;
-      document.documentElement.lang = language;
+    const grid = document.getElementById("inventoryGrid");
+    const statusMessage = document.getElementById("inventoryStatus");
+    const emptyState = document.getElementById("emptyState");
+    const emptyTitle = document.getElementById("emptyTitle");
+    const emptyText = document.getElementById("emptyText");
+    const count = document.getElementById("inventoryCount");
+    const search = document.getElementById("vehicleSearch");
 
-      document.querySelectorAll("[data-es][data-en]").forEach(element => {
-        element.textContent = element.dataset[language];
-      });
+    let vehicles = [];
 
-      document.querySelectorAll("[data-placeholder-es][data-placeholder-en]").forEach(element => {
-        element.placeholder = element.dataset["placeholder" + (language === "es" ? "Es" : "En")];
-      });
-
-      langButton.textContent = language === "es" ? "English" : "Español";
+    function makeText(tag, className, text) {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      element.textContent = text;
+      return element;
     }
 
-    langButton.addEventListener("click", () => {
-      setLanguage(language === "es" ? "en" : "es");
-    });
+    function formatMoney(value) {
+      const amount = Number(value);
+      if (!Number.isFinite(amount)) return "";
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
 
-    
-document.getElementById("leadForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  const form = event.currentTarget;
-  const status = document.getElementById("status");
-  status.style.display = "block";
-  status.textContent = language === "es"
-    ? "Enviando tu consulta..."
-    : "Sending your inquiry...";
-
-  const payload = {
-    full_name: form.elements.name.value.trim(),
-    phone: form.elements.phone.value.trim(),
-    city: form.elements.city.value.trim(),
-    vehicle: form.elements.vehicle.value.trim() || null,
-    down_payment: form.elements.down.value || null,
-    purchase_timeline: form.elements.when.value || null,
-    preferred_contact: form.elements.contact.value,
-    language: language
-  };
-
-  const projectUrl = "https://hdmdtwywrjxvezkrppxz.supabase.co";
-  const publicKey = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
-
-  try {
-    const response = await fetch(
-      projectUrl.replace(/\/$/, "") + "/rest/v1/financing_leads",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": publicKey,
-          "Authorization": "Bearer " + publicKey,
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify(payload)
+    function safeImageUrl(value) {
+      if (!value) return "";
+      try {
+        const url = new URL(value);
+        return url.protocol === "https:" ? url.href : "";
+      } catch {
+        return "";
       }
-    );
-
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
     }
 
-    status.textContent = language === "es"
-      ? "¡Consulta enviada correctamente!"
-      : "Inquiry submitted successfully!";
+    function createVehicleCard(vehicle) {
+      const card = document.createElement("article");
+      card.className = "vehicle-card";
 
-    form.reset();
-  } catch (error) {
-    console.error(error);
-    status.textContent = language === "es"
-      ? "No pudimos enviar tu consulta. Revisá los datos e intentá de nuevo."
-      : "We couldn't submit your inquiry. Please try again.";
-  }
+      const imageBox = document.createElement("div");
+      imageBox.className = "vehicle-image";
 
-  status.scrollIntoView({ behavior: "smooth", block: "center" });
-});
+      const imageUrl = safeImageUrl(vehicle.image_url);
 
+      if (imageUrl) {
+        const image = document.createElement("img");
+        image.src = imageUrl;
+        image.alt = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
+        image.loading = "lazy";
+        image.onerror = () => {
+          image.remove();
+          imageBox.appendChild(makeText("div", "no-photo", "PHOTO UNAVAILABLE"));
+        };
+        imageBox.appendChild(image);
+      } else {
+        imageBox.appendChild(makeText("div", "no-photo", "VEHICLE PHOTO"));
+      }
+
+      const info = document.createElement("div");
+      info.className = "vehicle-info";
+
+      info.appendChild(makeText("div", "vehicle-year", String(vehicle.year || "")));
+
+      const name = makeText(
+        "h3",
+        "vehicle-name",
+        `${vehicle.make || ""} ${vehicle.model || ""}`.trim()
+      );
+      info.appendChild(name);
+
+      if (vehicle.price !== null && vehicle.price !== undefined && vehicle.price !== "") {
+        info.appendChild(makeText("div", "vehicle-price", formatMoney(vehicle.price)));
+      }
+
+      const details = document.createElement("div");
+      details.className = "vehicle-details";
+
+      if (vehicle.mileage !== null && vehicle.mileage !== undefined && vehicle.mileage !== "") {
+        const miles = Number(vehicle.mileage);
+        if (Number.isFinite(miles)) {
+          details.appendChild(
+            makeText("span", "detail-pill", `${miles.toLocaleString("en-US")} miles`)
+          );
+        }
+      }
+
+      details.appendChild(makeText("span", "detail-pill", "Ask about financing"));
+      info.appendChild(details);
+
+      if (vehicle.description) {
+        info.appendChild(makeText("p", "vehicle-description", vehicle.description));
+      }
+
+      const action = document.createElement("a");
+      action.className = "button button-primary vehicle-button";
+      action.href = "financing.html";
+      action.textContent = "Ask About This Vehicle ↗";
+      info.appendChild(action);
+
+      card.appendChild(imageBox);
+      card.appendChild(info);
+      return card;
+    }
+
+    function normalize(value) {
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function renderInventory() {
+      const query = normalize(search.value.trim());
+
+      const filtered = vehicles.filter(vehicle => {
+        const searchable = normalize(
+          `${vehicle.year || ""} ${vehicle.make || ""} ${vehicle.model || ""} ${vehicle.description || ""}`
+        );
+        return searchable.includes(query);
+      });
+
+      grid.replaceChildren();
+      count.textContent = `${filtered.length} vehicle${filtered.length === 1 ? "" : "s"} found`;
+
+      if (filtered.length > 0) {
+        emptyState.hidden = true;
+        filtered.forEach(vehicle => grid.appendChild(createVehicleCard(vehicle)));
+        return;
+      }
+
+      emptyState.hidden = false;
+
+      if (vehicles.length > 0 && query) {
+        emptyTitle.textContent = "No matching vehicles found.";
+        emptyText.textContent = "Try another make, model, or year, or send us an inquiry about the vehicle you're looking for.";
+      } else {
+        emptyTitle.textContent = "Our inventory is being updated.";
+        emptyText.textContent = "We're updating our available vehicles. In the meantime, send us a financing inquiry and tell us which vehicle you're looking for.";
+      }
+    }
+
+    async function loadInventory() {
+      statusMessage.hidden = false;
+      statusMessage.textContent = "Loading available vehicles...";
+
+      try {
+        const endpoint =
+          `${SUPABASE_URL}/rest/v1/inventory` +
+          "?select=id,make,model,year,price,mileage,image_url,description" +
+          "&is_active=eq.true&order=created_at.desc";
+
+        const response = await fetch(endpoint, {
+          method: "GET",
+          headers: {
+            "apikey": SUPABASE_PUBLIC_KEY,
+            "Authorization": `Bearer ${SUPABASE_PUBLIC_KEY}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`Inventory request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        vehicles = Array.isArray(data) ? data : [];
+
+        statusMessage.hidden = true;
+        renderInventory();
+      } catch (error) {
+        console.error("Unable to load inventory:", error);
+
+        grid.replaceChildren();
+        count.textContent = "Inventory unavailable";
+        statusMessage.hidden = true;
+        emptyState.hidden = false;
+        emptyTitle.textContent = "We couldn't load the inventory.";
+        emptyText.textContent = "Please try again later or send us a financing inquiry to ask about available vehicles.";
+      }
+    }
+
+    search.addEventListener("input", renderInventory);
+    loadInventory();
   </script>
 </body>
 </html>
