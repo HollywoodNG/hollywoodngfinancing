@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071a35">
+<title>Hollywood NG | Inventory Manager</title>
+<style>
+:root {
+  --navy: #071a35;
+  --blue: #2875ed;
+  --bg: #f3f6fb;
+  --line: #e1e8f2;
+  --muted: #66758b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #17243a;
+  font-family: Arial, sans-serif;
+}
+header {
+  background: linear-gradient(120deg, #071a35, #173f73);
+  color: white;
+  padding: 25px max(18px, calc((100% - 1120px)/2));
+}
+header small {
+  color: #a9ccff;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+header h1 { margin: 10px 0; }
+header p { color: #d5e5fa; margin-bottom: 0; }
+main { max-width: 1120px; margin: 28px auto; padding: 0 16px; }
+.card {
+  background: white;
+  padding: 23px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  box-shadow: 0 5px 20px #18233808;
+}
+.hidden { display: none !important; }
+h2 { margin-top: 0; }
+.muted, .hint { color: var(--muted); line-height: 1.6; }
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 13px 0 7px;
+}
+input, textarea, button {
+  font: inherit;
+  border-radius: 8px;
+}
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d4dce8;
+  background: white;
+  color: #17243a;
+}
+input[type="checkbox"] { width: auto; }
+input[type="file"] { padding: 10px; }
+textarea { resize: vertical; min-height: 90px; }
+button, .button {
+  display: inline-block;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-weight: bold;
+  color: white;
+  background: var(--blue);
+  cursor: pointer;
+  text-decoration: none;
+}
+button:disabled { opacity: .6; cursor: wait; }
+button.secondary {
+  background: #e9eef7;
+  color: #263a5d;
+}
+button.danger { background: #a42b37; }
+.top-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.login { max-width: 440px; margin: 45px auto; }
+.login button { width: 100%; margin-top: 16px; }
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 17px;
+}
+.full { grid-column: 1 / -1; }
+.check-line {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 18px 0;
+}
+.check-line label { margin: 0; }
+.message {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.vehicle-list {
+  display: grid;
+  gap: 13px;
+}
+.vehicle {
+  display: grid;
+  grid-template-columns: 125px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 17px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.vehicle img {
+  display: block;
+  width: 125px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #e9eef7;
+}
+.vehicle h3 { margin: 0 0 7px; }
+.vehicle p {
+  margin: 5px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.vehicle-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+.vehicle-actions button { padding: 10px 12px; font-size: 13px; }
+.status {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 4px 9px;
+  background: #e4f7eb;
+  color: #176338;
+  font-size: 12px;
+  font-weight: bold;
+}
+.status.off { background: #edf0f5; color: #596579; }
+#photoPreview {
+  max-width: 230px;
+  max-height: 150px;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+@media (max-width: 700px) {
+  header { padding: 22px 17px; }
+  main { margin: 18px auto; padding: 0 12px; }
+  .card { padding: 16px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .full { grid-column: 1; }
+  .vehicle {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .vehicle img { width: 90px; height: 76px; }
+  .vehicle-actions { grid-column: 1 / -1; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <small>HOLLYWOOD NG · INVENTORY</small>
+  <h1>Inventory Manager</h1>
+  <p>Add vehicles, upload photos, update listings, and remove sold vehicles from the website.</p>
+</header>
+
+<main>
+  <section id="loginCard" class="card login">
+    <h2>Admin sign in</h2>
+    <p class="muted">Sign in with your existing Hollywood NG administrator account.</p>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input id="email" type="email" required autocomplete="username">
+      <label for="password">Password</label>
+      <input id="password" type="password" required autocomplete="current-password">
+      <button type="submit">Sign in</button>
+    </form>
+    <p id="loginMessage" class="message" role="status"></p>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="top-actions">
+      <a class="button" href="index.html">View Website</a>
+      <a class="button secondary" href="admin.html">Customer Dashboard</a>
+      <button id="logout" class="secondary" type="button">Sign out</button>
+    </div>
+
+    <section class="card" id="formCard">
+      <h2 id="formTitle">Add a vehicle</h2>
+      <p class="muted">Only vehicles marked as published appear on the public website.</p>
+
+      <form id="vehicleForm">
+        <div class="form-grid">
+          <div>
+            <label for="make">Make *</label>
+            <input id="make" required maxlength="60" placeholder="Toyota">
+          </div>
+          <div>
+            <label for="model">Model *</label>
+            <input id="model" required maxlength="80" placeholder="Camry SE">
+          </div>
+          <div>
+            <label for="year">Year *</label>
+            <input id="year" type="number" required min="1900" max="2100" step="1" placeholder="2022">
+          </div>
+          <div>
+            <label for="price">Price (USD)</label>
+            <input id="price" type="number" min="0" step="1" placeholder="15995">
+          </div>
+          <div>
+            <label for="mileage">Mileage (miles)</label>
+            <input id="mileage" type="number" min="0" step="1" placeholder="45000">
+          </div>
+          <div>
+            <label for="photo">Vehicle photo</label>
+            <input id="photo" type="file" accept="image/*">
+          </div>
+          <div class="full">
+            <img id="photoPreview" class="hidden" alt="Vehicle photo preview">
+            <p id="currentPhoto" class="hint"></p>
+          </div>
+          <div class="full">
+            <label for="description">Description</label>
+            <textarea id="description" maxlength="500" placeholder="Vehicle details, features, condition..."></textarea>
+          </div>
+        </div>
+
+        <div class="check-line">
+          <input id="isActive" type="checkbox" checked>
+          <label for="isActive">Publish this vehicle on the website</label>
+        </div>
+
+        <button id="saveButton" type="submit">Save vehicle</button>
+        <button id="cancelEdit" class="secondary hidden" type="button">Cancel edit</button>
+        <p id="formMessage" class="message" role="status"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Your vehicles</h2>
+      <p class="muted">Retiring a vehicle hides it from the public website without deleting its record.</p>
+      <button id="refresh" type="button" class="secondary">↻ Refresh inventory</button>
+      <p id="listMessage" class="message" role="status"></p>
+      <div id="vehicleList" class="vehicle-list"></div>
+    </section>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const PROJECT_URL = "https://hdmdtwywrjxvezkrppxz.supabase.co";
+const PUBLIC_KEY = "sb_publishable_Td6-DHNUItbzAVI6ooRjag_C8z5qCZt";
+const ADMIN_UID = "d120459c-90e9-4557-a882-81dd9ad74416";
+const BUCKET = "vehicle-photos";
+
+const db = window.supabase.createClient(PROJECT_URL, PUBLIC_KEY);
+const loginCard = document.getElementById("loginCard");
+const dashboard = document.getElementById("dashboard");
+const loginMessage = document.getElementById("loginMessage");
+const formMessage = document.getElementById("formMessage");
+const listMessage = document.getElementById("listMessage");
+const vehicleList = document.getElementById("vehicleList");
+const vehicleForm = document.getElementById("vehicleForm");
+const photoInput = document.getElementById("photo");
+const photoPreview = document.getElementById("photoPreview");
+const currentPhoto = document.getElementById("currentPhoto");
+const saveButton = document.getElementById("saveButton");
+
+let vehicles = [];
+let editingId = null;
+let editingImageUrl = "";
+
+function setMessage(element, message, isError = false) {
+  element.textContent = message;
+  element.style.color = isError ? "#a42b37" : "#176338";
+}
+
+async function checkSession() {
+  const { data, error } = await db.auth.getUser();
+
+  if (error || !data.user) {
+    loginCard.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+    return;
+  }
+
+  if (data.user.id !== ADMIN_UID) {
+    await db.auth.signOut();
+    loginCard.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+    setMessage(loginMessage, "This account does not have inventory administrator access.", true);
+    return;
+  }
+
+  loginCard.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  await loadVehicles();
+}
+
+document.getElementById("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  setMessage(loginMessage, "Signing in...");
+
+  const { error } = await db.auth.signInWithPassword({
+    email: document.getElementById("email").value.trim(),
+    password: document.getElementById("password").value
+  });
+
+  if (error) {
+    setMessage(loginMessage, "Sign-in failed. Check your email and password.", true);
+    return;
+  }
+
+  await checkSession();
+});
+
+document.getElementById("logout").addEventListener("click", async () => {
+  await db.auth.signOut();
+  loginCard.classList.remove("hidden");
+  dashboard.classList.add("hidden");
+  vehicleForm.reset();
+  editingId = null;
+});
+
+function safeImageUrl(value) {
+  if (!value) return "";
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.href : "";
+  } catch {
+    return "";
+  }
+}
+
+function formatMoney(value) {
+  if (value === null || value === undefined || value === "") return "Price not listed";
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0
+  }).format(Number(value));
+}
+
+function makeElement(tag, className, value) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (value !== undefined) el.textContent = value;
+  return el;
+}
+
+async function loadVehicles() {
+  setMessage(listMessage, "Loading inventory...");
+  vehicleList.replaceChildren();
+
+  const { data, error } = await db
+    .from("inventory")
+    .select("id,created_at,make,model,year,price,mileage,image_url,description,is_active")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    setMessage(listMessage, "Could not load inventory. Check the administrator permissions.", true);
+    return;
+  }
+
+  vehicles = data || [];
+  renderVehicles();
+  setMessage(listMessage, `${vehicles.length} vehicle record(s).`);
+}
+
+function renderVehicles() {
+  vehicleList.replaceChildren();
+
+  if (!vehicles.length) {
+    vehicleList.appendChild(makeElement("p", "muted",
+      "No vehicles have been added yet. Use the form above to add your first vehicle."));
+    return;
+  }
+
+  vehicles.forEach(vehicle => {
+    const row = makeElement("article", "vehicle");
+
+    const image = document.createElement("img");
+    image.alt = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
+    image.src = safeImageUrl(vehicle.image_url) || "";
+    if (!image.src || !vehicle.image_url) {
+      image.style.visibility = "hidden";
+    }
+    row.appendChild(image);
+
+    const details = document.createElement("div");
+    details.appendChild(makeElement("h3", "", `${vehicle.year} ${vehicle.make} ${vehicle.model}`));
+    details.appendChild(makeElement("p", "", formatMoney(vehicle.price)));
+
+    if (vehicle.mileage !== null && vehicle.mileage !== undefined) {
+      details.appendChild(makeElement("p", "", `${Number(vehicle.mileage).toLocaleString("en-US")} miles`));
+    }
+
+    const status = makeElement("span",
+      vehicle.is_active ? "status" : "status off",
+      vehicle.is_active ? "PUBLISHED" : "RETIRED");
+    details.appendChild(status);
+
+    if (vehicle.description) {
+      details.appendChild(makeElement("p", "", vehicle.description));
+    }
+
+    row.appendChild(details);
+
+    const actions = makeElement("div", "vehicle-actions");
+
+    const editButton = makeElement("button", "secondary", "Edit");
+    editButton.type = "button";
+    editButton.addEventListener("click", () => startEdit(vehicle));
+    actions.appendChild(editButton);
+
+    const toggleButton = makeElement(
+      "button",
+      vehicle.is_active ? "danger" : "",
+      vehicle.is_active ? "Retire" : "Publish"
+    );
+    toggleButton.type = "button";
+    toggleButton.addEventListener("click", () => toggleVehicle(vehicle));
+    actions.appendChild(toggleButton);
+
+    row.appendChild(actions);
+    vehicleList.appendChild(row);
+  });
+}
+
+function startEdit(vehicle) {
+  editingId = vehicle.id;
+  editingImageUrl = vehicle.image_url || "";
+
+  document.getElementById("make").value = vehicle.make || "";
+  document.getElementById("model").value = vehicle.model || "";
+  document.getElementById("year").value = vehicle.year || "";
+  document.getElementById("price").value = vehicle.price ?? "";
+  document.getElementById("mileage").value = vehicle.mileage ?? "";
+  document.getElementById("description").value = vehicle.description || "";
+  document.getElementById("isActive").checked = Boolean(vehicle.is_active);
+
+  photoInput.value = "";
+  photoPreview.classList.add("hidden");
+  currentPhoto.textContent = editingImageUrl
+    ? "A photo is already saved. Choose a new image only if you want to replace it."
+    : "No photo saved yet.";
+
+  document.getElementById("formTitle").textContent = "Edit vehicle";
+  saveButton.textContent = "Save changes";
+  document.getElementById("cancelEdit").classList.remove("hidden");
+  setMessage(formMessage, "Editing selected vehicle.");
+
+  document.getElementById("formCard").scrollIntoView({ behavior: "smooth" });
+}
+
+function resetVehicleForm() {
+  editingId = null;
+  editingImageUrl = "";
+  vehicleForm.reset();
+  document.getElementById("isActive").checked = true;
+  photoPreview.removeAttribute("src");
+  photoPreview.classList.add("hidden");
+  currentPhoto.textContent = "";
+  document.getElementById("formTitle").textContent = "Add a vehicle";
+  saveButton.textContent = "Save vehicle";
+  document.getElementById("cancelEdit").classList.add("hidden");
+  setMessage(formMessage, "");
+}
+
+document.getElementById("cancelEdit").addEventListener("click", resetVehicleForm);
+
+photoInput.addEventListener("change", () => {
+  const file = photoInput.files && photoInput.files[0];
+
+  if (!file) {
+    photoPreview.classList.add("hidden");
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    photoInput.value = "";
+    setMessage(formMessage, "Please choose an image file.", true);
+    return;
+  }
+
+  photoPreview.src = URL.createObjectURL(file);
+  photoPreview.classList.remove("hidden");
+  currentPhoto.textContent = "New photo selected.";
+});
+
+async function uploadPhoto(file) {
+  const cleanName = file.name
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]/g, "-")
+    .slice(-90);
+
+  const path = `${Date.now()}-${cleanName}`;
+
+  const { error } = await db.storage
+    .from(BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type
+    });
+
+  if (error) throw error;
+
+  const { data } = db.storage.from(BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+}
+
+vehicleForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  saveButton.disabled = true;
+  setMessage(formMessage, "Saving vehicle...");
+
+  try {
+    const make = document.getElementById("make").value.trim();
+    const model = document.getElementById("model").value.trim();
+    const year = Number(document.getElementById("year").value);
+    const priceInput = document.getElementById("price").value.trim();
+    const mileageInput = document.getElementById("mileage").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const isActive = document.getElementById("isActive").checked;
+
+    if (!make || !model || !Number.isInteger(year) || year < 1900 || year > 2100) {
+      throw new Error("Enter a valid make, model, and year.");
+    }
+
+    if (priceInput && Number(priceInput) < 0) {
+      throw new Error("Price cannot be negative.");
+    }
+
+    if (mileageInput && (!Number.isInteger(Number(mileageInput)) || Number(mileageInput) < 0)) {
+      throw new Error("Mileage must be a non-negative whole number.");
+    }
+
+    let imageUrl = editingImageUrl;
+    const photo = photoInput.files && photoInput.files[0];
+
+    if (photo) {
+      if (!photo.type.startsWith("image/")) {
+        throw new Error("Choose a valid image file.");
+      }
+      if (photo.size > 8 * 1024 * 1024) {
+        throw new Error("The photo must be 8 MB or smaller.");
+      }
+      imageUrl = await uploadPhoto(photo);
+    }
+
+    const record = {
+      make,
+      model,
+      year,
+      price: priceInput ? Number(priceInput) : null,
+      mileage: mileageInput ? Number(mileageInput) : null,
+      image_url: imageUrl || null,
+      description: description || null,
+      is_active: isActive
+    };
+
+    let result;
+
+    if (editingId) {
+      result = await db.from("inventory").update(record).eq("id", editingId);
+    } else {
+      result = await db.from("inventory").insert(record);
+    }
+
+    if (result.error) throw result.error;
+
+    setMessage(formMessage, "Vehicle saved successfully.");
+    resetVehicleForm();
+    await loadVehicles();
+  } catch (error) {
+    console.error("Save vehicle error:", error);
+    setMessage(formMessage, error.message || "Could not save the vehicle.", true);
+  } finally {
+    saveButton.disabled = false;
+  }
+});
+
+async function toggleVehicle(vehicle) {
+  const nextState = !vehicle.is_active;
+  const action = nextState ? "publish" : "retire";
+
+  if (!confirm(`Are you sure you want to ${action} the ${vehicle.year} ${vehicle.make} ${vehicle.model}?`)) {
+    return;
+  }
+
+  setMessage(listMessage, nextState ? "Publishing vehicle..." : "Retiring vehicle...");
+
+  const { error } = await db
+    .from("inventory")
+    .update({ is_active: nextState })
+    .eq("id", vehicle.id);
+
+  if (error) {
+    setMessage(listMessage, "Could not update this vehicle. Check your permissions.", true);
+    return;
+  }
+
+  await loadVehicles();
+}
+
+document.getElementById("refresh").addEventListener("click", loadVehicles);
+
+checkSession();
+</script>
+</body>
+</html>
