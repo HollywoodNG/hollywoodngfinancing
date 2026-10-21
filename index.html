@@ -983,59 +983,77 @@
       return `${vehicle.year || ""} ${vehicle.make || ""} ${vehicle.model || ""}`.trim();
     }
 
+  
     function renderBrandTiles() {
       brandGrid.replaceChildren();
 
-      const grouped = new Map();
+      const brandList = [
+        { name: "Audi", logo: "https://cdn.simpleicons.org/audi/FFFFFF" },
+        { name: "Toyota", logo: "https://cdn.simpleicons.org/toyota/FFFFFF" },
+        { name: "Ford", logo: "https://cdn.simpleicons.org/ford/FFFFFF" },
+        { name: "RAM", logo: "https://cdn.simpleicons.org/ram/FFFFFF" },
+        { name: "Chevrolet", logo: "https://cdn.simpleicons.org/chevrolet/FFFFFF" },
+        { name: "Hyundai", logo: "https://cdn.simpleicons.org/hyundai/FFFFFF" },
+        { name: "Honda", logo: "https://cdn.simpleicons.org/honda/FFFFFF" },
+        { name: "Mazda", logo: "https://cdn.simpleicons.org/mazda/FFFFFF" }
+      ];
 
-      vehicles.forEach(vehicle => {
-        const make = String(vehicle.make || "").trim();
-        if (!make) return;
-        const key = make.toLowerCase();
-        if (!grouped.has(key)) grouped.set(key, { name: make, count: 0 });
-        grouped.get(key).count += 1;
-      });
+      brandList.forEach(brand => {
+        const count = vehicles.filter(vehicle =>
+          normalized(vehicle.make) === normalized(brand.name)
+        ).length;
 
-      const brands = Array.from(grouped.values())
-        .sort((a, b) => a.name.localeCompare(b.name));
-
-      if (!brands.length) {
-        brandGrid.appendChild(textElement(
-          "div",
-          "brand-empty",
-          "Brand panels will appear here automatically when vehicles are published."
-        ));
-        return;
-      }
-
-      brands.forEach(brand => {
         const tile = document.createElement("button");
         tile.type = "button";
         tile.className = "brand-tile" +
           (normalized(activeBrand) === normalized(brand.name) ? " active" : "");
 
-        const symbol = textElement(
+        const symbol = document.createElement("div");
+        symbol.className = "brand-symbol";
+        symbol.style.cssText =
+          "display:flex;align-items:center;justify-content:center;";
+
+        const logo = document.createElement("img");
+        logo.src = brand.logo;
+        logo.alt = brand.name + " logo";
+        logo.loading = "lazy";
+        logo.style.cssText =
+          "width:100%;height:100%;max-width:76px;max-height:48px;object-fit:contain;";
+
+        logo.onerror = () => {
+          logo.remove();
+          symbol.textContent = brand.name.substring(0, 2).toUpperCase();
+        };
+
+        symbol.appendChild(logo);
+
+        const name = textElement(
           "div",
-          "brand-symbol",
-          brand.name.substring(0, 2).toUpperCase()
+          "brand-name",
+          brand.name.toUpperCase()
         );
 
-        const name = textElement("div", "brand-name", brand.name.toUpperCase());
-        const count = textElement(
+        const countLabel = textElement(
           "div",
           "brand-count",
-          `${brand.count} vehicle${brand.count === 1 ? "" : "s"} available`
+          `${count} vehicle${count === 1 ? "" : "s"} available`
         );
 
-        tile.append(symbol, name, count);
+        tile.append(symbol, name, countLabel);
+
         tile.addEventListener("click", () => {
-          activeBrand = normalized(activeBrand) === normalized(brand.name)
-            ? ""
-            : brand.name;
+          activeBrand =
+            normalized(activeBrand) === normalized(brand.name)
+              ? ""
+              : brand.name;
+
           makeFilter.value = activeBrand;
           renderBrandTiles();
           renderVehicles();
-          document.getElementById("inventory").scrollIntoView({ behavior: "smooth" });
+
+          document.getElementById("inventory").scrollIntoView({
+            behavior: "smooth"
+          });
         });
 
         brandGrid.appendChild(tile);
