@@ -1158,16 +1158,13 @@
       );
       const whatsappUrl = `https://wa.me/17862319566?text=${whatsappMessage}`;
 
-      if (photoUrl) {
-        const viewButton = document.createElement("a");
-        viewButton.className = "btn btn-blue vehicle-cta";
-        viewButton.href = photoUrl;
-        viewButton.target = "_blank";
-        viewButton.rel = "noopener noreferrer";
-        viewButton.textContent = "View Vehicle ↗";
-        viewButton.style.cssText = "flex:1 1 130px;text-align:center;";
-        actions.appendChild(viewButton);
-      }
+           const viewButton = document.createElement("button");
+      viewButton.type = "button";
+      viewButton.className = "btn btn-blue vehicle-cta";
+      viewButton.textContent = "View Vehicle ↗";
+      viewButton.style.cssText = "flex:1 1 130px;text-align:center;cursor:pointer;";
+      viewButton.addEventListener("click", () => openVehicleDetails(vehicle));
+      actions.appendChild(viewButton);
 
       const financeButton = document.createElement("a");
       financeButton.className = "btn btn-blue vehicle-cta";
@@ -1191,6 +1188,249 @@
       card.append(photoWrap, content);
       return card;
     }
+
+    
+    function openVehicleDetails(vehicle) {
+      const photoUrl = safeImageUrl(vehicle.image_url);
+      const vehicleName = publishedVehicleName(vehicle);
+
+      const overlay = document.createElement("div");
+      overlay.style.cssText = `
+        position:fixed;inset:0;z-index:99999;
+        background:rgba(3,10,22,.86);
+        backdrop-filter:blur(8px);
+        display:flex;align-items:center;justify-content:center;
+        padding:18px;overflow-y:auto;
+      `;
+
+      const panel = document.createElement("div");
+      panel.style.cssText = `
+        width:100%;max-width:1000px;max-height:92vh;
+        overflow-y:auto;background:#0b1d35;color:#fff;
+        border:1px solid rgba(255,255,255,.15);
+        border-radius:18px;position:relative;
+        box-shadow:0 25px 80px rgba(0,0,0,.5);
+      `;
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.textContent = "✕";
+      closeButton.setAttribute("aria-label", "Close vehicle details");
+      closeButton.style.cssText = `
+        position:sticky;top:10px;float:right;z-index:2;
+        margin:10px 10px -48px 0;width:40px;height:40px;
+        border:1px solid rgba(255,255,255,.3);
+        border-radius:50%;background:#102b4b;color:white;
+        font-size:22px;cursor:pointer;
+      `;
+
+      const closeDetails = () => {
+        overlay.remove();
+        document.removeEventListener("keydown", handleEscape);
+      };
+
+      const handleEscape = event => {
+        if (event.key === "Escape") closeDetails();
+      };
+
+      closeButton.addEventListener("click", closeDetails);
+      overlay.addEventListener("click", event => {
+        if (event.target === overlay) closeDetails();
+      });
+      document.addEventListener("keydown", handleEscape);
+
+      const layout = document.createElement("div");
+      layout.style.cssText = `
+        display:flex;flex-wrap:wrap;gap:26px;padding:24px;
+      `;
+
+      const imageColumn = document.createElement("div");
+      imageColumn.style.cssText = "flex:1 1 340px;min-width:0;";
+
+      if (photoUrl) {
+        const image = document.createElement("img");
+        image.src = photoUrl;
+        image.alt = vehicleName;
+        image.style.cssText = `
+          display:block;width:100%;max-height:440px;
+          object-fit:contain;background:#07152b;
+          border-radius:12px;
+        `;
+        imageColumn.appendChild(image);
+      } else {
+        const placeholder = document.createElement("div");
+        placeholder.textContent = "HOLLYWOOD NG";
+        placeholder.style.cssText = `
+          min-height:260px;display:grid;place-items:center;
+          background:#07152b;border-radius:12px;color:#8da9c9;
+        `;
+        imageColumn.appendChild(placeholder);
+      }
+
+      const info = document.createElement("div");
+      info.style.cssText = "flex:1 1 300px;min-width:0;padding-top:8px;";
+
+      const label = document.createElement("div");
+      label.textContent = "HOLLYWOOD NG · AVAILABLE VEHICLE";
+      label.style.cssText = `
+        color:#80baff;font-size:11px;font-weight:700;
+        letter-spacing:1.5px;margin-bottom:12px;
+      `;
+      info.appendChild(label);
+
+      const title = document.createElement("h2");
+      title.textContent = vehicleName || "Vehicle Details";
+      title.style.cssText = `
+        font-size:clamp(24px,4vw,34px);line-height:1.2;
+        margin:0 0 16px;color:#fff;
+      `;
+      info.appendChild(title);
+
+      const specs = document.createElement("div");
+      specs.style.cssText = `
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
+        gap:10px;margin-bottom:20px;
+      `;
+
+      const addSpec = (name, value) => {
+        if (value === null || value === undefined || value === "") return;
+
+        const item = document.createElement("div");
+        item.style.cssText = `
+          padding:12px;background:#102743;border-radius:9px;
+          border:1px solid rgba(255,255,255,.08);
+        `;
+
+        const heading = document.createElement("div");
+        heading.textContent = name;
+        heading.style.cssText = `
+          color:#9bb1ca;font-size:11px;margin-bottom:5px;
+        `;
+
+        const detail = document.createElement("div");
+        detail.textContent = String(value);
+        detail.style.cssText = `
+          color:#fff;font-size:14px;font-weight:600;
+          overflow-wrap:anywhere;
+        `;
+
+        item.append(heading, detail);
+        specs.appendChild(item);
+      };
+
+      addSpec("Year", vehicle.year);
+      addSpec("Make", vehicle.make);
+      addSpec("Model", vehicle.model);
+      addSpec(
+        "Mileage",
+        vehicle.mileage !== null && vehicle.mileage !== undefined &&
+        vehicle.mileage !== ""
+          ? `${Number(vehicle.mileage).toLocaleString("en-US")} miles`
+          : ""
+      );
+      addSpec("Color", vehicle.color);
+      addSpec("Vehicle type", vehicle.body_type);
+      addSpec("Stock #", vehicle.stock_number);
+
+      info.appendChild(specs);
+
+      if (vehicle.description) {
+        const descriptionTitle = document.createElement("h3");
+        descriptionTitle.textContent = "Vehicle Description";
+        descriptionTitle.style.cssText = "font-size:17px;margin:0 0 8px;";
+
+        const description = document.createElement("p");
+        description.textContent = vehicle.description;
+        description.style.cssText = `
+          color:#c4d1e0;line-height:1.65;font-size:14px;
+          white-space:pre-line;margin:0 0 20px;
+        `;
+
+        info.append(descriptionTitle, description);
+      }
+
+      const paymentBox = document.createElement("div");
+      paymentBox.style.cssText = `
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+        gap:10px;padding:15px;background:#07152b;
+        border:1px solid rgba(128,186,255,.2);
+        border-radius:12px;margin-bottom:12px;
+      `;
+
+      const addPayment = (labelText, value) => {
+        const item = document.createElement("div");
+
+        const label = document.createElement("div");
+        label.textContent = labelText;
+        label.style.cssText = "color:#a8bbd1;font-size:12px;margin-bottom:6px;";
+
+        const amount = document.createElement("strong");
+        amount.textContent = value;
+        amount.style.cssText = "font-size:19px;color:#80baff;";
+
+        item.append(label, amount);
+        paymentBox.appendChild(item);
+      };
+
+      addPayment(
+        "Est. down payment",
+        money(vehicle.down_payment_estimate) || "Ask us"
+      );
+
+      addPayment(
+        "Est. monthly payment",
+        money(vehicle.monthly_payment_estimate)
+          ? `${money(vehicle.monthly_payment_estimate)}/mo`
+          : "Ask us"
+      );
+
+      info.appendChild(paymentBox);
+
+      const footnote = document.createElement("p");
+      footnote.textContent = vehicle.payment_term_months
+        ? `Illustrative estimate for ${vehicle.payment_term_months} months. Final terms and approval must be confirmed.`
+        : "Estimates are not offers or guarantees of financing. Ask our team to confirm available options.";
+      footnote.style.cssText = `
+        color:#9bb1ca;font-size:11px;line-height:1.5;margin:0 0 20px;
+      `;
+      info.appendChild(footnote);
+
+      const buttons = document.createElement("div");
+      buttons.style.cssText = "display:flex;flex-wrap:wrap;gap:10px;";
+
+      const financeButton = document.createElement("a");
+      financeButton.href = "financing.html";
+      financeButton.textContent = "Financing Options ↗";
+      financeButton.style.cssText = `
+        flex:1 1 150px;text-align:center;text-decoration:none;
+        background:#1764b0;color:white;padding:14px 12px;
+        border-radius:9px;font-size:13px;font-weight:700;
+      `;
+
+      const message = encodeURIComponent(
+        `Hi Nacho! I'm interested in the ${vehicleName}${vehicle.stock_number ? `, stock #${vehicle.stock_number}` : ""}. Can you tell me more about it and the financing options?`
+      );
+
+      const whatsappButton = document.createElement("a");
+      whatsappButton.href = `https://wa.me/17862319566?text=${message}`;
+      whatsappButton.target = "_blank";
+      whatsappButton.rel = "noopener noreferrer";
+      whatsappButton.textContent = "WhatsApp ↗";
+      whatsappButton.style.cssText = `
+        flex:1 1 120px;text-align:center;text-decoration:none;
+        background:#25D366;color:#fff;padding:14px 12px;
+        border-radius:9px;font-size:13px;font-weight:700;
+      `;
+
+      buttons.append(financeButton, whatsappButton);
+      info.appendChild(buttons);
+
+      layout.append(imageColumn, info);
+      panel.append(closeButton, layout);
+      overlay.appendChild(panel);
+      document.body.appendChild(overlay);
+    }
+
 
     function renderVehicles() {
       const query = normalized(searchInput.value);
