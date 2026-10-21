@@ -870,6 +870,45 @@ footer {
 }
 
 
+/* AJUSTE FINAL DE LA FOTO PRINCIPAL */
+.hero-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  align-items: stretch !important;
+}
+
+.hero-card.hero-image-card {
+  width: 100% !important;
+  max-width: none !important;
+  height: 400px !important;
+  min-height: 400px !important;
+  max-height: 400px !important;
+  padding: 0 !important;
+  aspect-ratio: auto !important;
+  overflow: hidden !important;
+}
+
+.hero-card.hero-image-card > .hero-image {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  inset: 0 !important;
+  object-fit: cover !important;
+}
+
+@media (max-width: 950px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .hero-card.hero-image-card {
+    width: 100% !important;
+    max-width: none !important;
+    height: 360px !important;
+    min-height: 360px !important;
+    max-height: 360px !important;
+  }
+}
+
   </style>
 </head>
 
