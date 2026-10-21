@@ -870,44 +870,100 @@ footer {
 }
 
 
-/* AJUSTE FINAL DE LA FOTO PRINCIPAL */
+
+/* FOTO PRINCIPAL HORIZONTAL */
 .hero-grid {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-  align-items: stretch !important;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
 }
 
 .hero-card.hero-image-card {
-  width: 100% !important;
-  max-width: none !important;
-  height: 400px !important;
-  min-height: 400px !important;
-  max-height: 400px !important;
+  position: relative;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: 16 / 9;
   padding: 0 !important;
-  aspect-ratio: auto !important;
-  overflow: hidden !important;
+  border: none;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #0c2340;
+  box-shadow: 0 15px 40px rgba(10, 35, 65, 0.16);
 }
 
-.hero-card.hero-image-card > .hero-image {
-  position: absolute !important;
-  width: 100% !important;
-  height: 100% !important;
-  inset: 0 !important;
-  object-fit: cover !important;
+.hero-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-image-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  color: white;
+  background:
+    linear-gradient(90deg, transparent 40%, rgba(7, 25, 46, 0.3)),
+    linear-gradient(to top, rgba(7, 25, 46, 0.9), transparent 70%);
+}
+
+.hero-image-overlay h2 {
+  color: white;
+  margin: 10px 0 18px;
+}
+
+.hero-image-overlay .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
 @media (max-width: 950px) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
   }
 
   .hero-card.hero-image-card {
-    width: 100% !important;
-    max-width: none !important;
-    height: 360px !important;
-    min-height: 360px !important;
-    max-height: 360px !important;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 16 / 9;
   }
 }
+
+@media (max-width: 600px) {
+  .hero-card.hero-image-card {
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-image-overlay {
+    padding: 16px;
+  }
+
+  .hero-image-overlay h2 {
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
+
+  .hero-image-overlay .hero-stats {
+    gap: 10px;
+  }
+}
+
 
   </style>
 </head>
