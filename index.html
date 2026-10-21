@@ -808,6 +808,52 @@ footer {
   background: #102544;
   color: #e3edf8;
 }
+    
+.hero-image-card {
+  position: relative;
+  min-height: 390px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #0c2340;
+  padding: 0;
+  box-shadow: 0 15px 40px rgba(10, 35, 65, 0.16);
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-image-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  color: white;
+  background: linear-gradient(
+    to top,
+    rgba(7, 25, 46, 0.92),
+    rgba(7, 25, 46, 0.12) 65%
+  );
+}
+
+.hero-image-overlay h2 {
+  color: white;
+  margin: 10px 0 18px;
+}
+
+.hero-image-overlay .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
 
   </style>
 </head>
@@ -853,7 +899,7 @@ footer {
         
 <aside class="hero-card hero-image-card">
   <img
-    src="hero-cars-miami.jpg"
+    src="hero-cars-miami.png"
     alt="Autos y camionetas en Miami"
     class="hero-image"
   >
