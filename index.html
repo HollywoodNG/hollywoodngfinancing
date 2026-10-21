@@ -9,20 +9,20 @@
 
   <style>
     :root {
-      --navy: #07152b;
-      --navy2: #0c2445;
-      --blue: #2778f4;
-      --blue2: #69a8ff;
-      --ink: #15253d;
-      --muted: #718096;
-      --bg: #f3f6fb;
-      --line: #e2e9f3;
-      --white: #fff;
-      --green: #16865b;
+      --navy: #102544;
+      --navy-deep: #0b1b32;
+      --blue: #6da9e8;
+      --blue-pale: #eaf3fc;
+      --ink: #263b55;
+      --muted: #73849a;
+      --bg: #f5f8fc;
+      --line: #e1eaf3;
+      --white: #ffffff;
+      --green: #21815d;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     body {
       margin: 0;
       background: var(--bg);
@@ -32,74 +32,42 @@
     a { color: inherit; text-decoration: none; }
     button, input, select { font: inherit; }
     button, a { -webkit-tap-highlight-color: transparent; }
-
-    .wrap {
-      width: min(1200px, 92%);
-      margin: 0 auto;
-    }
+    .wrap { width: min(1200px, 92%); margin: 0 auto; }
 
     .header {
-      background: var(--navy);
-      color: white;
+      background: rgba(255,255,255,.97);
+      color: var(--navy);
       position: sticky;
       top: 0;
       z-index: 20;
-      border-bottom: 1px solid rgba(255,255,255,.09);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
     }
-
     .nav {
-      min-height: 76px;
+      min-height: 82px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 22px;
     }
-
-  .logo {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  font-size: 19px;
-  font-weight: 900;
-  letter-spacing: 0;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-    .logo-mark {
-  display: grid;
-  place-items: center;
-  height: 39px;
-  width: 39px;
-  border-radius: 10px;
-  background: var(--blue);
-  font-size: 15px;
-  letter-spacing: 0;
-}
-
-.logo-img {
-  width: 280px;
-  height: auto;
-  max-height: 110px;
-  object-fit: contain;
-  object-position: left center;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-    .logo span { color: var(--blue2); }
-
+    .logo { display: flex; align-items: center; min-width: 0; }
+    .logo-img {
+      display: block;
+      width: min(280px, 36vw);
+      max-height: 70px;
+      height: auto;
+      object-fit: contain;
+      object-position: left center;
+    }
     .nav-links {
       display: flex;
       align-items: center;
       gap: 26px;
       font-size: 13px;
       font-weight: 700;
-      color: #dce8fa;
+      color: #52657d;
     }
-
-    .nav-links a:hover { color: white; }
+    .nav-links a:hover { color: var(--navy); }
 
     .btn {
       border: 0;
@@ -114,226 +82,190 @@
       font-weight: 800;
       font-size: 13px;
       cursor: pointer;
-      transition: .18s ease;
+      transition: background .18s ease, transform .18s ease;
     }
-
     .btn:hover { transform: translateY(-1px); }
-    .btn-blue { background: var(--blue); color: white; }
-    .btn-blue:hover { background: #1764d9; }
+    .btn-blue { background: var(--navy); color: white; }
+    .btn-blue:hover { background: #1c416e; }
     .btn-white { background: white; color: var(--navy); }
-    .btn-outline { border: 1px solid #6583ad; color: white; background: transparent; }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,.48);
+      color: white;
+      background: transparent;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.08); }
 
     .hero {
       color: white;
-      background:
-        radial-gradient(ellipse at 84% 5%, rgba(39,120,244,.36), transparent 35%),
-        radial-gradient(ellipse at 5% 100%, rgba(24,64,119,.55), transparent 42%),
-        linear-gradient(115deg, #07152b, #0c2344 60%, #102f59);
-      padding: 66px 0 76px;
+      background: linear-gradient(120deg, #102544 0%, #17385f 70%, #244b75 100%);
+      padding: 58px 0 68px;
       overflow: hidden;
     }
-
     .hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 32px;
-}
-
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+      align-items: center;
+      gap: 42px;
+    }
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      color: #a9ceff;
-      font-size: 11px;
+      color: #b9d7f8;
+      font-size: 10px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.8px;
     }
-
     .eyebrow-dot {
       height: 7px;
       width: 7px;
       border-radius: 50%;
-      background: #67b4ff;
-      box-shadow: 0 0 15px #67b4ff;
+      background: #8ec6ff;
     }
-
     h1 {
-      font-size: clamp(43px, 6vw, 72px);
-      line-height: 1.02;
-      letter-spacing: -2.7px;
+      font-size: clamp(42px, 5vw, 66px);
+      line-height: 1.04;
+      letter-spacing: -2.4px;
       max-width: 690px;
-      margin: 20px 0 22px;
+      margin: 19px 0 20px;
     }
-
-    h1 em {
-      font-style: normal;
-      color: #80b8ff;
-    }
-
+    h1 em { font-style: normal; color: #a9d3fa; }
     .hero-copy {
       max-width: 560px;
-      color: #d0def1;
+      color: #dce7f5;
       line-height: 1.8;
-      font-size: 16px;
-      margin: 0 0 27px;
+      font-size: 15px;
+      margin: 0 0 24px;
     }
-
     .hero-buttons { display: flex; flex-wrap: wrap; gap: 11px; }
-
     .hero-note {
-      color: #aebed4;
-      font-size: 11px;
+      color: #bdcde0;
+      font-size: 10px;
       line-height: 1.7;
-      margin-top: 18px;
+      margin-top: 16px;
+      max-width: 500px;
     }
 
-  
-.hero-card.hero-image-card {
-  padding: 0 !important;
-  border: none !important;
-  width: 100%;
-  min-width: 0;
-  align-self: stretch;
-}
-
-
-    .hero-card-top {
+    /* Imagen principal horizontal */
+    .hero-card.hero-image-card {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      aspect-ratio: 16 / 9;
+      align-self: center;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #0c2340;
+      box-shadow: 0 18px 48px rgba(0,0,0,.2);
+    }
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-image-overlay {
+      position: absolute;
+      inset: 0;
       display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      align-items: center;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(16px, 2.5vw, 28px);
+      color: white;
+      background: linear-gradient(
+        180deg,
+        rgba(7,21,43,0) 35%,
+        rgba(7,21,43,.18) 58%,
+        rgba(7,21,43,.75) 100%
+      );
+      pointer-events: none;
     }
-
     .mini-label {
-      color: #a8c8f4;
+      color: #e5f1ff;
       font-size: 10px;
       font-weight: 900;
       letter-spacing: 1.8px;
+      text-shadow: 0 1px 10px rgba(0,0,0,.35);
     }
-
-    .live-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      border-radius: 20px;
-      padding: 7px 10px;
-      color: #d6f8e8;
-      background: rgba(26,156,103,.18);
-      border: 1px solid rgba(96,222,167,.22);
-      font-size: 10px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .live-dot::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #54dfa0;
-    }
-
-    .hero-card h2 {
-      margin: 25px 0 9px;
-      font-size: 27px;
-      line-height: 1.25;
-    }
-
-    .hero-card p {
-      margin: 0;
-      color: #d0def1;
-      line-height: 1.7;
-      font-size: 13px;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 25px;
-    }
-
-    .hero-stat {
-      padding: 15px;
-      border-radius: 11px;
-      background: rgba(4,16,34,.35);
-      border: 1px solid rgba(255,255,255,.09);
-    }
-
-    .hero-stat strong {
+    .hero-image-overlay strong {
       display: block;
-      font-size: 25px;
-      margin-bottom: 5px;
+      margin-top: 8px;
+      font-size: clamp(18px, 2.2vw, 27px);
+      line-height: 1.15;
+      letter-spacing: -.4px;
     }
-
-    .hero-stat span {
-      color: #afc5e4;
-      font-size: 11px;
+    .hero-image-overlay span:last-child {
+      display: block;
+      margin-top: 7px;
+      font-size: 12px;
+      color: #e1ebf8;
     }
 
     .benefits {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
-      margin-top: -27px;
+      margin-top: -22px;
       position: relative;
       z-index: 2;
     }
-
     .benefit {
       background: white;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 21px;
-      box-shadow: 0 8px 25px rgba(17,41,75,.05);
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(17,41,75,.045);
       display: flex;
       gap: 13px;
       align-items: flex-start;
     }
-
     .benefit-icon {
-      flex: 0 0 39px;
-      height: 39px;
+      flex: 0 0 38px;
+      height: 38px;
       display: grid;
       place-items: center;
       border-radius: 10px;
-      color: var(--blue);
-      background: #eaf2ff;
-      font-size: 17px;
+      color: #376b9f;
+      background: var(--blue-pale);
+      font-size: 13px;
       font-weight: 900;
     }
-
     .benefit strong { display: block; font-size: 13px; margin: 2px 0 6px; }
     .benefit span { display: block; color: var(--muted); font-size: 11px; line-height: 1.6; }
 
-    .section { padding: 73px 0 0; }
-
+    .section { padding: 68px 0 0; }
     .section-heading {
       display: flex;
       justify-content: space-between;
       align-items: end;
       gap: 25px;
-      margin-bottom: 25px;
+      margin-bottom: 24px;
     }
-
     .section-kicker {
       font-size: 10px;
       font-weight: 900;
-      color: var(--blue);
-      letter-spacing: 2px;
+      color: #527fae;
+      letter-spacing: 1.8px;
       text-transform: uppercase;
     }
-
     h2.section-title {
       color: var(--navy);
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(28px, 4vw, 39px);
       line-height: 1.12;
-      letter-spacing: -1.1px;
+      letter-spacing: -1px;
       margin: 10px 0;
     }
-
     .section-subtitle {
       max-width: 620px;
       margin: 0;
@@ -341,9 +273,8 @@
       font-size: 13px;
       line-height: 1.8;
     }
-
     .text-link {
-      color: var(--blue);
+      color: #416f9f;
       font-size: 12px;
       font-weight: 900;
       white-space: nowrap;
@@ -354,14 +285,13 @@
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 13px;
     }
-
     .brand-tile {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       text-align: left;
       min-width: 0;
-      padding: 19px;
+      padding: 18px;
       border-radius: 13px;
       background: white;
       border: 1px solid var(--line);
@@ -369,39 +299,27 @@
       transition: .2s ease;
       color: var(--ink);
     }
-
-    .brand-tile:hover, .brand-tile.active {
-      border-color: var(--blue);
+    .brand-tile:hover,
+    .brand-tile.active {
+      border-color: #8fb9e4;
       background: #f8fbff;
       transform: translateY(-2px);
-      box-shadow: 0 9px 22px rgba(39,120,244,.09);
+      box-shadow: 0 9px 22px rgba(39,90,145,.08);
     }
-
     .brand-symbol {
-      height: 37px;
-      width: 37px;
+      height: 36px;
+      width: 36px;
       display: grid;
       place-items: center;
-      border-radius: 10px;
-      color: var(--blue);
-      background: #eaf2ff;
-      font-size: 14px;
-      font-weight: 900;
-      margin-bottom: 17px;
-    }
-
-    .brand-name {
+      border-radius: 9px;
+      color: #376b9f;
+      background: var(--blue-pale);
       font-size: 13px;
       font-weight: 900;
-      overflow-wrap: anywhere;
+      margin-bottom: 15px;
     }
-
-    .brand-count {
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 7px;
-    }
-
+    .brand-name { font-size: 13px; font-weight: 900; overflow-wrap: anywhere; }
+    .brand-count { color: var(--muted); font-size: 11px; margin-top: 7px; }
     .brand-empty {
       grid-column: 1 / -1;
       padding: 25px;
@@ -414,8 +332,7 @@
       line-height: 1.8;
     }
 
-    .inventory-section { padding-bottom: 78px; }
-
+    .inventory-section { padding-bottom: 76px; }
     .filter-box {
       display: grid;
       grid-template-columns: minmax(180px, 1.5fr) repeat(3, minmax(130px, .8fr));
@@ -423,27 +340,24 @@
       background: white;
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 15px;
+      padding: 14px;
       margin: 24px 0 19px;
     }
-
     .field {
       width: 100%;
       min-width: 0;
       padding: 12px 13px;
       background: #f9fbfe;
-      border: 1px solid #e0e7f1;
+      border: 1px solid #dbe5f0;
       border-radius: 8px;
       outline: none;
       color: var(--ink);
       font-size: 12px;
     }
-
     .field:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(39,120,244,.1);
+      border-color: #7faedc;
+      box-shadow: 0 0 0 3px rgba(109,169,232,.13);
     }
-
     .results-line {
       display: flex;
       justify-content: space-between;
@@ -453,26 +367,22 @@
       color: var(--muted);
       font-size: 12px;
     }
-
     .results-line strong { color: var(--navy); }
     .result-tools { display: flex; align-items: center; gap: 10px; }
-
     .clear-filter {
       border: 0;
       padding: 5px 0;
       background: transparent;
-      color: var(--blue);
+      color: #416f9f;
       font-size: 11px;
       font-weight: 800;
       cursor: pointer;
     }
-
     .vehicle-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
     }
-
     .vehicle-card {
       min-width: 0;
       overflow: hidden;
@@ -484,20 +394,17 @@
       transition: .2s ease;
       box-shadow: 0 5px 22px rgba(17,41,75,.04);
     }
-
     .vehicle-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 17px 34px rgba(17,41,75,.1);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(17,41,75,.08);
       border-color: #cddaf0;
     }
-
     .vehicle-photo {
       position: relative;
       aspect-ratio: 16 / 10;
       overflow: hidden;
       background: linear-gradient(140deg, #102849, #274d7d);
     }
-
     .vehicle-photo img {
       width: 100%;
       height: 100%;
@@ -505,9 +412,7 @@
       object-fit: cover;
       transition: transform .35s;
     }
-
-    .vehicle-card:hover .vehicle-photo img { transform: scale(1.035); }
-
+    .vehicle-card:hover .vehicle-photo img { transform: scale(1.025); }
     .photo-placeholder {
       width: 100%;
       height: 100%;
@@ -520,12 +425,11 @@
       letter-spacing: 1.7px;
       padding: 20px;
     }
-
     .photo-tag {
       position: absolute;
       left: 13px;
       top: 13px;
-      background: rgba(7,21,43,.88);
+      background: rgba(16,37,68,.88);
       color: white;
       border: 1px solid rgba(255,255,255,.16);
       border-radius: 6px;
@@ -533,33 +437,29 @@
       font-weight: 800;
       padding: 7px 9px;
     }
-
     .vehicle-content {
       display: flex;
       flex-direction: column;
       flex: 1;
       padding: 19px;
     }
-
     .vehicle-topline {
       display: flex;
       justify-content: space-between;
       gap: 8px;
       align-items: center;
-      color: var(--blue);
+      color: #527fae;
       font-size: 10px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: .8px;
     }
-
     .stock-label {
       color: #7d8ba0;
       font-size: 9px;
       letter-spacing: .2px;
       text-align: right;
     }
-
     .vehicle-name {
       margin: 9px 0 0;
       color: var(--navy);
@@ -568,7 +468,6 @@
       letter-spacing: -.4px;
       overflow-wrap: anywhere;
     }
-
     .vehicle-specs {
       display: flex;
       align-items: center;
@@ -576,7 +475,6 @@
       gap: 8px;
       margin: 13px 0 17px;
     }
-
     .spec {
       padding: 6px 8px;
       border-radius: 5px;
@@ -585,7 +483,6 @@
       font-size: 10px;
       font-weight: 700;
     }
-
     .payment-box {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -595,7 +492,6 @@
       padding: 15px 0;
       margin-top: auto;
     }
-
     .payment-label {
       display: block;
       color: var(--muted);
@@ -605,7 +501,6 @@
       letter-spacing: .55px;
       text-transform: uppercase;
     }
-
     .payment-value {
       display: block;
       color: var(--navy);
@@ -615,25 +510,20 @@
       margin-top: 3px;
       overflow-wrap: anywhere;
     }
-
-    .payment-value.blue { color: var(--blue); }
-
+    .payment-value.blue { color: #477eaf; }
     .payment-footnote {
       color: var(--muted);
       font-size: 10px;
       line-height: 1.6;
       margin: 12px 0 15px;
     }
-
     .vehicle-description {
       color: var(--muted);
       font-size: 12px;
       line-height: 1.7;
       margin: 0 0 14px;
     }
-
     .vehicle-cta { width: 100%; margin-top: auto; }
-
     .empty-state {
       padding: 48px 20px;
       text-align: center;
@@ -641,48 +531,46 @@
       background: white;
       border: 1px dashed #c6d5e8;
     }
-
     .empty-state h3 { color: var(--navy); margin: 0 0 10px; font-size: 21px; }
-    .empty-state p { max-width: 520px; margin: 0 auto 19px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .empty-state p {
+      max-width: 520px;
+      margin: 0 auto 19px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
     .loading { color: var(--muted); font-size: 13px; padding: 23px 0; line-height: 1.7; }
 
     .closing {
       color: white;
-      background:
-        radial-gradient(ellipse at 80% 50%, rgba(39,120,244,.3), transparent 38%),
-        linear-gradient(110deg, var(--navy), #102f58);
-      padding: 45px 0;
+      background: linear-gradient(110deg, #102544, #1b3d66);
+      padding: 44px 0;
     }
-
     .closing-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 24px;
     }
-
-    .closing h2 { font-size: clamp(25px, 3.5vw, 35px); letter-spacing: -.8px; margin: 0 0 10px; }
-    .closing p { color: #cbdaf0; font-size: 13px; line-height: 1.7; margin: 0; }
-
-    footer {
-      background: #041022;
-      padding: 25px 0;
-      color: #aebdd2;
-      font-size: 10px;
-      line-height: 1.9;
+    .closing h2 {
+      font-size: clamp(25px, 3.5vw, 35px);
+      letter-spacing: -.8px;
+      margin: 0 0 10px;
     }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
+    .closing p { color: #d5e2f1; font-size: 13px; line-height: 1.7; margin: 0; }
+    footer { background: #0b1b32; padding: 25px 0; color: #bdcde0; font-size: 10px; line-height: 1.9; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
     .footer-brand { color: white; font-weight: 900; letter-spacing: 1px; }
 
     @media (max-width: 950px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 30px; }
-      .hero-card { max-width: 600px; }
+      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .hero-card.hero-image-card {
+        width: 100%;
+        max-width: 760px;
+        aspect-ratio: 16 / 9;
+        justify-self: start;
+      }
+      .hero-copy { max-width: 680px; }
       .brand-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .vehicle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .filter-box { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -692,25 +580,27 @@
 
     @media (max-width: 600px) {
       .wrap { width: 91%; }
-      .nav { min-height: 66px; }
-      .logo { font-size: 15px; gap: 8px; }
-      .logo-mark { width: 34px; height: 34px; }
-      .nav-links { gap: 10px; }
+      .nav { min-height: 68px; gap: 10px; }
+      .logo { flex: 1; }
+      .logo-img { width: min(215px, 51vw); max-height: 56px; }
+      .nav-links { gap: 8px; }
       .nav-links > a:first-child { display: none; }
-      .nav-links .btn { padding: 10px 12px; font-size: 11px; }
-      .hero { padding: 47px 0 58px; }
-      h1 { letter-spacing: -1.8px; font-size: clamp(41px, 12vw, 60px); }
+      .nav-links .btn { padding: 10px 11px; min-height: 40px; font-size: 10px; }
+      .hero { padding: 42px 0 52px; }
+      h1 { letter-spacing: -1.7px; font-size: clamp(39px, 10.5vw, 55px); }
       .hero-copy { font-size: 14px; }
-      .hero-card { padding: 20px; }
-      .hero-card h2 { font-size: 24px; }
+      .hero-card.hero-image-card { aspect-ratio: 16 / 9; border-radius: 13px; }
+      .hero-image-overlay { padding: 15px; }
+      .hero-image-overlay strong { font-size: 19px; }
+      .hero-image-overlay span:last-child { font-size: 10px; }
       .benefits { grid-template-columns: 1fr; margin-top: 14px; }
       .benefit { padding: 15px; }
-      .section { padding-top: 54px; }
+      .section { padding-top: 52px; }
       .section-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
       .brand-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
       .brand-tile { padding: 14px; }
       .brand-symbol { margin-bottom: 12px; }
-      .filter-box { grid-template-columns: 1fr 1fr; padding: 11px; gap: 9px; }
+      .filter-box { grid-template-columns: 1fr 1fr; padding: 10px; gap: 9px; }
       .filter-box .search-field { grid-column: 1 / -1; }
       .field { font-size: 11px; padding: 12px 10px; }
       .vehicle-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -720,250 +610,6 @@
       .closing-inner { flex-direction: column; align-items: flex-start; }
       .footer-inner { flex-direction: column; gap: 8px; }
     }
-  
-/* HOLLYWOOD NG — DISEÑO AZUL MARINO Y CELESTE */
-
-:root {
-  --navy: #102544;
-  --navy2: #19385f;
-  --blue: #6da9e8;
-  --blue2: #a9d3fa;
-  --ink: #263b55;
-  --muted: #73849a;
-  --bg: #f4f8fc;
-  --line: #e1eaf3;
-  --white: #ffffff;
-  --green: #21815d;
-}
-
-body {
-  background-color: #f4f8fc;
-  color: #263b55;
-}
-
-header {
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid #e1eaf3;
-}
-
-.hero {
-  background:
-    linear-gradient(115deg, rgba(13, 35, 65, 0.94), rgba(39, 76, 116, 0.88)),
-    linear-gradient(135deg, #19385f, #6da9e8);
-  border-radius: 22px;
-  box-shadow: 0 12px 32px rgba(16, 37, 68, 0.10);
-}
-
-.hero h1,
-.hero h2 {
-  color: #ffffff;
-}
-
-.hero p {
-  color: #dceafa;
-}
-
-button,
-.btn,
-a.button {
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-button:hover,
-.btn:hover,
-a.button:hover {
-  transform: translateY(-1px);
-}
-
-#brands,
-#inventory {
-  scroll-margin-top: 90px;
-}
-
-#brands h2,
-#inventory h2 {
-  color: #19385f;
-}
-
-#brandGrid > *,
-#vehicleGrid > * {
-  border: 1px solid #e1eaf3;
-  border-radius: 16px;
-  box-shadow: 0 5px 18px rgba(22, 51, 84, 0.06);
-}
-
-#brandGrid > * {
-  background: linear-gradient(145deg, #ffffff, #f0f7fd);
-}
-
-#vehicleGrid > * {
-  background: #ffffff;
-}
-
-input,
-select {
-  border-color: #d8e4f0;
-  border-radius: 10px;
-}
-
-footer {
-  background: #102544;
-  color: #e3edf8;
-}
-    
-
-
-.hero-image-card {
-  position: relative;
-  width: 100%;
-  min-width: 0;
-  height: auto;
-  min-height: 0;
-  aspect-ratio: 2 / 1 !important;
-  overflow: hidden;
-  border-radius: 22px;
-  background: #0c2340;
-  padding: 0;
-  box-shadow: 0 15px 40px rgba(10, 35, 65, 0.16);
-}
-.hero-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-.hero-image-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-  color: white;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(7, 25, 46, 0.02),
-      rgba(7, 25, 46, 0.28)
-    ),
-    linear-gradient(
-      to top,
-      rgba(7, 25, 46, 0.90),
-      transparent 70%
-    );
-}
-
-.hero-image-overlay h2 {
-  color: white;
-  margin: 10px 0 18px;
-}
-
-.hero-image-overlay .hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-
-
-/* FOTO PRINCIPAL HORIZONTAL */
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: 32px;
-}
-
-.hero-card.hero-image-card {
-  position: relative;
-  width: 100%;
-  max-width: none;
-  min-width: 0;
-  height: auto;
-  min-height: 0;
-  max-height: none;
-  aspect-ratio: 2 / 1 !important;
-  padding: 0 !important;
-  border: none;
-  border-radius: 22px;
-  overflow: hidden;
-  background: #0c2340;
-  box-shadow: 0 15px 40px rgba(10, 35, 65, 0.16);
-}
-
-.hero-image {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.hero-image-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-  color: white;
-  background:
-    linear-gradient(90deg, transparent 40%, rgba(7, 25, 46, 0.3)),
-    linear-gradient(to top, rgba(7, 25, 46, 0.9), transparent 70%);
-}
-
-.hero-image-overlay h2 {
-  color: white;
-  margin: 10px 0 18px;
-}
-
-.hero-image-overlay .hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-@media (max-width: 950px) {
-  .hero-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 30px;
-  }
-
-  .hero-card.hero-image-card {
-    width: 100%;
-    height: auto;
-    min-height: 0;
-    max-height: none;
-    aspect-ratio: 2 / 1 !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-card.hero-image-card {
-    aspect-ratio: 2 / 1 !important;
-  }
-
-  .hero-image-overlay {
-    padding: 16px;
-  }
-
-  .hero-image-overlay h2 {
-    font-size: 21px;
-    margin-bottom: 12px;
-  }
-
-  .hero-image-overlay .hero-stats {
-    gap: 10px;
-  }
-}
-
-
   </style>
 </head>
 
@@ -971,8 +617,7 @@ footer {
   <header class="header">
     <div class="wrap nav">
       <a class="logo" href="index.html" aria-label="Hollywood NG home">
-        <img src="Logotipo%20Hollywood%20NG%20con%20palmera.png" class="logo-img" alt="Hollywood NG Logo">
-        
+        <img src="Logotipo%20Hollywood%20NG%20con%20palmera.png" class="logo-img" alt="Hollywood NG logo with palm tree">
       </a>
 
       <nav class="nav-links" aria-label="Main navigation">
@@ -987,13 +632,11 @@ footer {
       <div class="wrap hero-grid">
         <div>
           <div class="eyebrow"><span class="eyebrow-dot"></span> HOLLYWOOD, FLORIDA · SOUTH FLORIDA</div>
-          <h1>Tu próximo auto.<br><em>Tu próximo paso.</em></h1>
+          <h1>Your next car.<br><em>Your next move.</em></h1>
           <p class="hero-copy">
-  Explorá nuestro inventario de autos, camionetas y SUVs.
-  Consultá las opciones de pago inicial y financiación,
-  y encontrá el vehículo ideal para vos.
-</p>
-        
+            Explore our available cars, trucks and SUVs. See estimated down payments
+            and monthly payments, then contact our team to discuss your options.
+          </p>
 
           <div class="hero-buttons">
             <a class="btn btn-blue" href="#inventory">Explore Inventory ↓</a>
@@ -1005,29 +648,14 @@ footer {
           </p>
         </div>
 
-        
-<aside class="hero-card hero-image-card">
-  <img
-    src="hero-cars-miami.png"
-    alt="Autos y camionetas en Miami"
-    class="hero-image"
-  >
-  <div class="hero-image-overlay">
-    <span class="mini-label">HOLLYWOOD NG</span>
-    <h2>Encontrá tu próximo vehículo.</h2>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <strong id="heroVehicleCount">—</strong>
-        <span>Vehículos disponibles</span>
-      </div>
-      <div class="hero-stat">
-        <strong>South Florida</strong>
-        <span>Tu próximo auto empieza acá</span>
-      </div>
-    </div>
-  </div>
-</aside>
-
+        <aside class="hero-card hero-image-card" aria-label="Hollywood NG cars in Miami">
+          <img src="hero-cars-miami.png" alt="Cars and trucks in Miami" class="hero-image">
+          <div class="hero-image-overlay">
+            <span class="mini-label">HOLLYWOOD NG · SOUTH FLORIDA</span>
+            <strong>Find your next ride.</strong>
+            <span>Cars, trucks and SUVs · Financing options available</span>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -1311,9 +939,11 @@ footer {
       const content = textElement("div", "vehicle-content", "");
       const top = textElement("div", "vehicle-topline", "");
       top.appendChild(textElement("span", "", String(vehicle.year || "")));
+
       if (vehicle.stock_number) {
         top.appendChild(textElement("span", "stock-label", `STOCK # ${vehicle.stock_number}`));
       }
+
       content.appendChild(top);
 
       content.appendChild(textElement(
@@ -1337,6 +967,7 @@ footer {
       if (specs.childNodes.length) content.appendChild(specs);
 
       const payments = textElement("div", "payment-box", "");
+
       const down = textElement("div", "", "");
       down.appendChild(textElement("span", "payment-label", "Est. down payment"));
       down.appendChild(textElement(
@@ -1386,7 +1017,7 @@ footer {
       const type = typeFilter.value;
       const maxDown = downFilter.value ? Number(downFilter.value) : null;
 
-      let filtered = vehicles.filter(vehicle => {
+      const filtered = vehicles.filter(vehicle => {
         const searchData = normalized(
           `${vehicle.year || ""} ${vehicle.make || ""} ${vehicle.model || ""} ${vehicle.body_type || ""} ${vehicle.color || ""} ${vehicle.stock_number || ""} ${vehicle.description || ""}`
         );
@@ -1396,9 +1027,11 @@ footer {
         if (type && normalized(vehicle.body_type) !== normalized(type)) return false;
 
         if (maxDown !== null) {
-          if (vehicle.down_payment_estimate === null ||
-              vehicle.down_payment_estimate === undefined ||
-              vehicle.down_payment_estimate === "") return false;
+          if (
+            vehicle.down_payment_estimate === null ||
+            vehicle.down_payment_estimate === undefined ||
+            vehicle.down_payment_estimate === ""
+          ) return false;
 
           if (Number(vehicle.down_payment_estimate) > maxDown) return false;
         }
@@ -1466,7 +1099,6 @@ footer {
         const data = await response.json();
         vehicles = Array.isArray(data) ? data : [];
 
-        document.getElementById("heroVehicleCount").textContent = vehicles.length;
         loadingMessage.hidden = true;
 
         updateFilterOptions();
@@ -1475,14 +1107,15 @@ footer {
       } catch (error) {
         console.error("Inventory loading error:", error);
         loadingMessage.hidden = true;
-        document.getElementById("heroVehicleCount").textContent = "—";
         resultsCount.textContent = "Inventory unavailable";
+
         brandGrid.replaceChildren();
         brandGrid.appendChild(textElement(
           "div",
           "brand-empty",
           "We couldn't load vehicle brands right now. Please try again later."
         ));
+
         vehicleGrid.replaceChildren();
         emptyState.hidden = false;
         emptyTitle.textContent = "We couldn't load the inventory.";
@@ -1500,6 +1133,7 @@ footer {
 
     typeFilter.addEventListener("change", renderVehicles);
     downFilter.addEventListener("change", renderVehicles);
+
     document.getElementById("clearFilters").addEventListener("click", clearAllFilters);
 
     loadInventory();
