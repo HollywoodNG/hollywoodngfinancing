@@ -651,6 +651,53 @@
       .closing-inner { flex-direction: column; align-items: flex-start; }
       .footer-inner { flex-direction: column; gap: 8px; }
     }
+    /* HOLLYWOOD NG - BRAND LOGOS */
+#brandGrid {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 20px 4px;
+  scrollbar-width: thin;
+}
+
+#brandGrid .brand-tile {
+  flex: 0 0 90px;
+  width: 90px;
+  min-width: 90px;
+  padding: 8px 0;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#brandGrid .brand-symbol {
+  width: 76px;
+  height: 54px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#brandGrid .brand-symbol img {
+  width: 100%;
+  height: 100%;
+  max-width: 76px;
+  max-height: 48px;
+  object-fit: contain;
+}
+
+#brandGrid .brand-name,
+#brandGrid .brand-count {
+  display: none !important;
+}
   </style>
 </head>
 
@@ -988,14 +1035,14 @@
       brandGrid.replaceChildren();
 
       const brandList = [
-        { name: "Audi", logo: "https://cdn.simpleicons.org/audi/FFFFFF" },
-        { name: "Toyota", logo: "https://cdn.simpleicons.org/toyota/FFFFFF" },
-        { name: "Ford", logo: "https://cdn.simpleicons.org/ford/FFFFFF" },
-        { name: "RAM", logo: "https://cdn.simpleicons.org/ram/FFFFFF" },
-        { name: "Chevrolet", logo: "https://cdn.simpleicons.org/chevrolet/FFFFFF" },
-        { name: "Hyundai", logo: "https://cdn.simpleicons.org/hyundai/FFFFFF" },
-        { name: "Honda", logo: "https://cdn.simpleicons.org/honda/FFFFFF" },
-        { name: "Mazda", logo: "https://cdn.simpleicons.org/mazda/FFFFFF" }
+        { name: "Audi", logo: "https://cdn.simpleicons.org/audi/102544" },
+        { name: "Toyota", logo: "https://cdn.simpleicons.org/toyota/102544" },
+        { name: "Ford", logo: "https://cdn.simpleicons.org/ford/102544" },
+        { name: "RAM", logo: "https://cdn.simpleicons.org/ram/102544" },
+        { name: "Chevrolet", logo: "https://cdn.simpleicons.org/chevrolet/102544" },
+        { name: "Hyundai", logo: "https://cdn.simpleicons.org/hyundai/102544" },
+        { name: "Honda", logo: "https://cdn.simpleicons.org/honda/102544" },
+        { name: "Mazda", logo: "https://cdn.simpleicons.org/mazda/102544" }
       ];
 
       brandList.forEach(brand => {
