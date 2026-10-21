@@ -698,6 +698,79 @@
 #brandGrid .brand-count {
   display: none !important;
 }
+    
+    /* HOLLYWOOD NG - WELCOME BENEFIT CARDS */
+    .benefits .benefit {
+      background: linear-gradient(145deg, #102544, #0b1b32);
+      color: #ffffff;
+      border: 1px solid rgba(169, 211, 250, 0.25);
+      border-radius: 16px;
+      padding: 28px 24px;
+      min-height: 205px;
+      gap: 16px;
+      align-items: flex-start;
+      box-shadow: 0 12px 28px rgba(7, 21, 43, 0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .benefits .benefit:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 34px rgba(7, 21, 43, 0.22);
+    }
+
+    .benefits .benefit-icon {
+      flex: 0 0 48px;
+      width: 48px;
+      height: 48px;
+      border-radius: 13px;
+      background: rgba(169, 211, 250, 0.13);
+      border: 1px solid rgba(169, 211, 250, 0.28);
+      color: #a9d3fa;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .benefits .benefit strong {
+      display: block;
+      color: #ffffff;
+      font-size: 17px;
+      line-height: 1.4;
+      margin: 8px 0 10px;
+    }
+
+    .benefits .benefit span:not(.benefit-icon) {
+      display: block;
+      color: #d1deee;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .benefits .benefit .benefit-label {
+      color: #a9d3fa;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 1.3px;
+      line-height: 1.5;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 950px) {
+      .benefits .benefit {
+        padding: 22px 18px;
+      }
+
+      .benefits .benefit strong {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .benefits .benefit {
+        min-height: 0;
+        padding: 22px;
+      }
+    }
+
   </style>
 </head>
 
@@ -748,31 +821,36 @@
       </div>
     </section>
 
+    
     <div class="wrap benefits">
       <div class="benefit">
-        <div class="benefit-icon">01</div>
+        <div class="benefit-icon">✦</div>
         <div>
-          <strong>Browse real inventory</strong>
-          <span>See the vehicles currently published on our website.</span>
+          <span class="benefit-label">WELCOME TO HOLLYWOOD NG</span>
+          <strong>¡Bienvenido a nuestra página oficial!</strong>
+          <span>Conocé Hollywood NG, explorá nuestras opciones y empezá a encontrar el vehículo ideal para tu próximo paso.</span>
         </div>
       </div>
 
       <div class="benefit">
-        <div class="benefit-icon">02</div>
+        <div class="benefit-icon">200+</div>
         <div>
-          <strong>View estimated payments</strong>
-          <span>See the down payment and monthly estimate when available.</span>
+          <span class="benefit-label">ENCONTRÁ TU PRÓXIMO AUTO</span>
+          <strong>Más de 200 opciones para elegir</strong>
+          <span>Descubrí una amplia variedad de autos, camionetas y SUVs. Explorá el inventario y encontrá el que va con vos.</span>
         </div>
       </div>
 
       <div class="benefit">
-        <div class="benefit-icon">03</div>
+        <div class="benefit-icon">↗</div>
         <div>
-          <strong>Connect with our team</strong>
-          <span>Ask questions and submit a financing inquiry online.</span>
+          <span class="benefit-label">ESTAMOS PARA AYUDARTE</span>
+          <strong>Atención rápida y personalizada</strong>
+          <span>¿Tenés preguntas? Nuestro equipo está listo para responderte y ayudarte a dar el próximo paso con opciones de financiación.</span>
         </div>
       </div>
     </div>
+
 
     <section class="section" id="brands">
       <div class="wrap">
