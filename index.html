@@ -810,11 +810,14 @@ footer {
 }
     
 
+
 .hero-image-card {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: 430px;
+  min-width: 0;
+  height: 430px;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 22px;
   background: #0c2340;
@@ -840,52 +843,17 @@ footer {
   justify-content: flex-end;
   padding: 24px;
   color: white;
-  background: linear-gradient(
-    90deg,
-    rgba(7, 25, 46, 0.05) 0%,
-    rgba(7, 25, 46, 0.05) 50%,
-    rgba(7, 25, 46, 0.35) 100%
-  ), linear-gradient(
-    to top,
-    rgba(7, 25, 46, 0.90),
-    rgba(7, 25, 46, 0.00) 70%
-  );
-}
-
-.hero-image-overlay h2 {
-  color: white;
-  margin: 10px 0 18px;
-}
-
-.hero-image-overlay .hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-
-.hero-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-image-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-  color: white;
-  background: linear-gradient(
-    to top,
-    rgba(7, 25, 46, 0.92),
-    rgba(7, 25, 46, 0.12) 65%
-  );
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 25, 46, 0.02),
+      rgba(7, 25, 46, 0.28)
+    ),
+    linear-gradient(
+      to top,
+      rgba(7, 25, 46, 0.90),
+      transparent 70%
+    );
 }
 
 .hero-image-overlay h2 {
