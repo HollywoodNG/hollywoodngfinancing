@@ -1148,11 +1148,45 @@
           : "Estimates are not offers or guarantees of financing. Ask our team to confirm available options."
       ));
 
-      const action = document.createElement("a");
-      action.className = "btn btn-blue vehicle-cta";
-      action.href = "financing.html";
-      action.textContent = "Get Financing Options ↗";
-      content.appendChild(action);
+      
+      const actions = textElement("div", "vehicle-actions", "");
+      actions.style.cssText = "display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;";
+
+      const vehicleName = publishedVehicleName(vehicle);
+      const whatsappMessage = encodeURIComponent(
+        `Hi Nacho! I'm interested in the ${vehicleName}${vehicle.stock_number ? `, stock #${vehicle.stock_number}` : ""}. Can you tell me more about it and the financing options?`
+      );
+      const whatsappUrl = `https://wa.me/17862319566?text=${whatsappMessage}`;
+
+      if (photoUrl) {
+        const viewButton = document.createElement("a");
+        viewButton.className = "btn btn-blue vehicle-cta";
+        viewButton.href = photoUrl;
+        viewButton.target = "_blank";
+        viewButton.rel = "noopener noreferrer";
+        viewButton.textContent = "View Vehicle ↗";
+        viewButton.style.cssText = "flex:1 1 130px;text-align:center;";
+        actions.appendChild(viewButton);
+      }
+
+      const financeButton = document.createElement("a");
+      financeButton.className = "btn btn-blue vehicle-cta";
+      financeButton.href = "financing.html";
+      financeButton.textContent = "Financing Options ↗";
+      financeButton.style.cssText = "flex:1 1 150px;text-align:center;";
+      actions.appendChild(financeButton);
+
+      const whatsappButton = document.createElement("a");
+      whatsappButton.className = "btn vehicle-cta";
+      whatsappButton.href = whatsappUrl;
+      whatsappButton.target = "_blank";
+      whatsappButton.rel = "noopener noreferrer";
+      whatsappButton.textContent = "WhatsApp ↗";
+      whatsappButton.style.cssText = "flex:1 1 110px;text-align:center;background:#25D366;color:#fff;border:1px solid #25D366;";
+      actions.appendChild(whatsappButton);
+
+      content.appendChild(actions);
+
 
       card.append(photoWrap, content);
       return card;
