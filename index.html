@@ -715,6 +715,97 @@
       .closing-inner { flex-direction: column; align-items: flex-start; }
       .footer-inner { flex-direction: column; gap: 8px; }
     }
+  
+/* HOLLYWOOD NG — DISEÑO AZUL MARINO Y CELESTE */
+
+:root {
+  --navy: #102544;
+  --navy2: #19385f;
+  --blue: #6da9e8;
+  --blue2: #a9d3fa;
+  --ink: #263b55;
+  --muted: #73849a;
+  --bg: #f4f8fc;
+  --line: #e1eaf3;
+  --white: #ffffff;
+  --green: #21815d;
+}
+
+body {
+  background-color: #f4f8fc;
+  color: #263b55;
+}
+
+header {
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #e1eaf3;
+}
+
+.hero {
+  background:
+    linear-gradient(115deg, rgba(13, 35, 65, 0.94), rgba(39, 76, 116, 0.88)),
+    linear-gradient(135deg, #19385f, #6da9e8);
+  border-radius: 22px;
+  box-shadow: 0 12px 32px rgba(16, 37, 68, 0.10);
+}
+
+.hero h1,
+.hero h2 {
+  color: #ffffff;
+}
+
+.hero p {
+  color: #dceafa;
+}
+
+button,
+.btn,
+a.button {
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+.btn:hover,
+a.button:hover {
+  transform: translateY(-1px);
+}
+
+#brands,
+#inventory {
+  scroll-margin-top: 90px;
+}
+
+#brands h2,
+#inventory h2 {
+  color: #19385f;
+}
+
+#brandGrid > *,
+#vehicleGrid > * {
+  border: 1px solid #e1eaf3;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(22, 51, 84, 0.06);
+}
+
+#brandGrid > * {
+  background: linear-gradient(145deg, #ffffff, #f0f7fd);
+}
+
+#vehicleGrid > * {
+  background: #ffffff;
+}
+
+input,
+select {
+  border-color: #d8e4f0;
+  border-radius: 10px;
+}
+
+footer {
+  background: #102544;
+  color: #e3edf8;
+}
+
   </style>
 </head>
 
