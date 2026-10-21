@@ -95,12 +95,39 @@
     }
     .btn-outline:hover { background: rgba(255,255,255,.08); }
 
-    .hero {
-      color: white;
-      background: linear-gradient(120deg, #102544 0%, #17385f 70%, #244b75 100%);
-      padding: 58px 0 68px;
-      overflow: hidden;
-    }
+    
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: white;
+  padding: 58px 0 68px;
+  background: #07152b;
+}
+
+.hero-background {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 21, 43, 0.82) 0%,
+      rgba(7, 21, 43, 0.55) 55%,
+      rgba(7, 21, 43, 0.25) 100%
+    ),
+    linear-gradient(
+      0deg,
+      #07152b 0%,
+      transparent 45%
+    ),
+    url("hero-cars-miami.png") center center / cover no-repeat;
+}
+
+.hero-card.hero-image-card {
+  display: none;
+}
+
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
@@ -586,7 +613,7 @@
       .nav-links { gap: 8px; }
       .nav-links > a:first-child { display: none; }
       .nav-links .btn { padding: 10px 11px; min-height: 40px; font-size: 10px; }
-      .hero { padding: 42px 0 52px; }
+      .hero { padding: 60px 0 70px; }
       h1 { letter-spacing: -1.7px; font-size: clamp(39px, 10.5vw, 55px); }
       .hero-copy { font-size: 14px; }
       .hero-card.hero-image-card { aspect-ratio: 16 / 9; border-radius: 13px; }
@@ -648,14 +675,10 @@
           </p>
         </div>
 
-        <aside class="hero-card hero-image-card" aria-label="Hollywood NG cars in Miami">
-          <img src="hero-cars-miami.png" alt="Cars and trucks in Miami" class="hero-image">
-          <div class="hero-image-overlay">
-            <span class="mini-label">HOLLYWOOD NG · SOUTH FLORIDA</span>
-            <strong>Find your next ride.</strong>
-            <span>Cars, trucks and SUVs · Financing options available</span>
-          </div>
-        </aside>
+        
+<!-- La foto ahora se usa como fondo de la sección hero -->
+<div class="hero-background" aria-hidden="true"></div>
+
       </div>
     </section>
 
