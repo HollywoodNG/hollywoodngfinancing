@@ -164,12 +164,28 @@ footer {
   #leadForm { grid-template-columns: 1fr; }
   #leadForm .full, #leadForm .submit { grid-column: 1; }
 }
+  /* Tamaño del logo del encabezado */
+header .logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 0;
+}
+
+header .logo-img {
+  display: block;
+  width: 180px;
+  height: 55px;
+  object-fit: contain;
+}
 </style>
 
 </head>
 <body>
   <header>
-    <div class="logo">HOLLYWOOD <span>NG</span></div>
+   <a class="logo" href="index.html" aria-label="Hollywood NG home">
+  <img src="Logotipo%20Hollywood%20NG%20con%20palmera.png" alt="Hollywood NG" class="logo-img">
+</a>
     <button class="lang" id="langButton" type="button">English</button>
   </header>
 
