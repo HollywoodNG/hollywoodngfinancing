@@ -1568,58 +1568,76 @@
     }
 
 
-    function renderVehicles() {
-      const query = normalized(searchInput.value);
-      const make = makeFilter.value;
-      const type = typeFilter.value;
-      const maxDown = downFilter.value ? Number(downFilter.value) : null;
+    
+function renderVehicles() {
+  const query = normalized(searchInput.value);
+  const make = makeFilter.value;
+  const type = typeFilter.value;
+  const maxDown = downFilter.value ? Number(downFilter.value) : null;
 
-      const filtered = vehicles.filter(vehicle => {
-        const searchData = normalized(
-          `${vehicle.year || ""} ${vehicle.make || ""} ${vehicle.model || ""} ${vehicle.body_type || ""} ${vehicle.color || ""} ${vehicle.stock_number || ""} ${vehicle.description || ""}`
-        );
+  const hasFilters = Boolean(query || make || type || maxDown !== null);
 
-        if (query && !searchData.includes(query)) return false;
-        if (make && normalized(vehicle.make) !== normalized(make)) return false;
-        if (type && normalized(vehicle.body_type) !== normalized(type)) return false;
+  const filtered = vehicles.filter(vehicle => {
+    const searchData = normalized(
+      `${vehicle.year || ""} ${vehicle.make || ""} ${vehicle.model || ""} ${vehicle.body_type || ""} ${vehicle.color || ""} ${vehicle.stock_number || ""} ${vehicle.description || ""}`
+    );
 
-        if (maxDown !== null) {
-          if (
-            vehicle.down_payment_estimate === null ||
-            vehicle.down_payment_estimate === undefined ||
-            vehicle.down_payment_estimate === ""
-          ) return false;
+    if (query && !searchData.includes(query)) return false;
+    if (make && normalized(vehicle.make) !== normalized(make)) return false;
+    if (type && normalized(vehicle.body_type) !== normalized(type)) return false;
 
-          if (Number(vehicle.down_payment_estimate) > maxDown) return false;
-        }
+    if (maxDown !== null) {
+      if (
+        vehicle.down_payment_estimate === null ||
+        vehicle.down_payment_estimate === undefined ||
+        vehicle.down_payment_estimate === ""
+      ) return false;
 
-        return true;
-      });
-
-      vehicleGrid.replaceChildren();
-
-      resultsCount.replaceChildren();
-      resultsCount.append(
-        textElement("strong", "", String(filtered.length)),
-        document.createTextNode(` vehicle${filtered.length === 1 ? "" : "s"} found`)
-      );
-
-      if (filtered.length) {
-        emptyState.hidden = true;
-        filtered.forEach(vehicle => vehicleGrid.appendChild(buildVehicleCard(vehicle)));
-        return;
-      }
-
-      emptyState.hidden = false;
-
-      if (vehicles.length && (query || make || type || maxDown !== null)) {
-        emptyTitle.textContent = "No vehicles match these filters.";
-        emptyText.textContent = "Try different filters or clear your search to see all available vehicles.";
-      } else {
-        emptyTitle.textContent = "Our inventory is being updated.";
-        emptyText.textContent = "We are updating our available vehicles. Contact us to ask about current inventory and financing options.";
-      }
+      if (Number(vehicle.down_payment_estimate) > maxDown) return false;
     }
+
+    return true;
+  });
+
+  vehicleGrid.replaceChildren();
+
+  const visibleVehicles = hasFilters ? filtered : filtered.slice(0, 6);
+
+  resultsCount.replaceChildren();
+
+  if (!hasFilters && filtered.length > 6) {
+    resultsCount.append(
+      textElement("strong", "", "6"),
+      document.createTextNode(` of ${filtered.length} vehicles shown`)
+    );
+  } else {
+    resultsCount.append(
+      textElement("strong", "", String(filtered.length)),
+      document.createTextNode(` vehicle${filtered.length === 1 ? "" : "s"} found`)
+    );
+  }
+
+  if (visibleVehicles.length) {
+    emptyState.hidden = true;
+    visibleVehicles.forEach(vehicle => {
+      vehicleGrid.appendChild(buildVehicleCard(vehicle));
+    });
+    return;
+  }
+
+  emptyState.hidden = false;
+
+  if (vehicles.length && hasFilters) {
+    emptyTitle.textContent = "No vehicles match these filters.";
+    emptyText.textContent =
+      "Try different filters or clear your search to see all available vehicles.";
+  } else {
+    emptyTitle.textContent = "Our inventory is being updated.";
+    emptyText.textContent =
+      "We are updating our available vehicles. Contact us to ask about current inventory and financing options.";
+  }
+}
+
 
     function clearAllFilters() {
       searchInput.value = "";
