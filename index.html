@@ -440,12 +440,12 @@
       box-shadow: 0 15px 30px rgba(17,41,75,.08);
       border-color: #cddaf0;
     }
-    .vehicle-photo {
-      position: relative;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background: linear-gradient(140deg, #102849, #274d7d);
-    }
+   .vehicle-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: linear-gradient(140deg, #102849, #274d7d);
+}
     .vehicle-photo img {
       width: 100%;
       height: 100%;
@@ -478,12 +478,12 @@
       font-weight: 800;
       padding: 7px 9px;
     }
-    .vehicle-content {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      padding: 19px;
-    }
+  .vehicle-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 14px;
+}
     .vehicle-topline {
       display: flex;
       justify-content: space-between;
@@ -1256,19 +1256,7 @@
         `${vehicle.make || ""} ${vehicle.model || ""}`.trim()
       ));
 
-      const specs = textElement("div", "vehicle-specs", "");
-
-      if (vehicle.mileage !== null && vehicle.mileage !== undefined && vehicle.mileage !== "") {
-        const miles = Number(vehicle.mileage);
-        if (Number.isFinite(miles)) {
-          specs.appendChild(textElement("span", "spec", `${miles.toLocaleString("en-US")} miles`));
-        }
-      }
-
-      if (vehicle.body_type) specs.appendChild(textElement("span", "spec", vehicle.body_type));
-      if (vehicle.color) specs.appendChild(textElement("span", "spec", vehicle.color));
-
-      if (specs.childNodes.length) content.appendChild(specs);
+    
 
       const payments = textElement("div", "payment-box", "");
 
@@ -1293,17 +1281,8 @@
       payments.append(down, monthly);
       content.appendChild(payments);
 
-      if (vehicle.description) {
-        content.appendChild(textElement("p", "vehicle-description", vehicle.description));
-      }
-
-      content.appendChild(textElement(
-        "p",
-        "payment-footnote",
-        vehicle.payment_term_months
-          ? `Illustrative estimate for ${vehicle.payment_term_months} months. Final terms and approval must be confirmed.`
-          : "Estimates are not offers or guarantees of financing. Ask our team to confirm available options."
-      ));
+     
+      
 
       
       const actions = textElement("div", "vehicle-actions", "");
