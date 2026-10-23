@@ -727,9 +727,9 @@
       const buttons = document.createElement("div");
       buttons.style.cssText = "display:flex;flex-wrap:wrap;gap:10px;";
 
-      const financeButton = document.createElement("a");
-      financeButton.href = "financing.html";
-      financeButton.textContent = "Financing Options ↗";
+     const financeButton = document.createElement("a");
+financeButton.href = `financing.html?vehicle=${encodeURIComponent(vehicleName)}`;
+financeButton.textContent = "Financing Options ↗";
       financeButton.style.cssText = `
         flex:1 1 150px;text-align:center;text-decoration:none;
         background:#1764b0;color:white;padding:14px 12px;
