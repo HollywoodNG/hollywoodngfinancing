@@ -333,7 +333,12 @@ header .logo-img {
       setLanguage(language === "es" ? "en" : "es");
     });
 
-    
+  // Completar el vehículo si la persona llega desde una tarjeta del inventario
+const vehicleFromUrl = new URLSearchParams(window.location.search).get("vehicle");
+
+if (vehicleFromUrl) {
+  document.getElementById("vehicle").value = vehicleFromUrl.trim().slice(0, 100);
+}  
 document.getElementById("leadForm").addEventListener("submit", async event => {
   event.preventDefault();
 
