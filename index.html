@@ -1325,10 +1325,10 @@
       actions.appendChild(viewButton);
 
       const financeButton = document.createElement("a");
-      financeButton.className = "btn btn-blue vehicle-cta";
-      financeButton.href = "financing.html";
-      financeButton.textContent = "Financing Options ↗";
-      financeButton.style.cssText = "flex:1 1 150px;text-align:center;";
+financeButton.className = "btn btn-blue vehicle-cta";
+financeButton.href = `financing.html?vehicle=${encodeURIComponent(vehicleName)}`;
+financeButton.textContent = "Financing Options ↗";
+financeButton.style.cssText = "flex:1 1 150px;text-align:center;";
       actions.appendChild(financeButton);
 
       const whatsappButton = document.createElement("a");
@@ -1557,7 +1557,7 @@
       buttons.style.cssText = "display:flex;flex-wrap:wrap;gap:10px;";
 
       const financeButton = document.createElement("a");
-      financeButton.href = "financing.html";
+      financeButton.href = `financing.html?vehicle=${encodeURIComponent(vehicleName)}`;
       financeButton.textContent = "Financing Options ↗";
       financeButton.style.cssText = `
         flex:1 1 150px;text-align:center;text-decoration:none;
